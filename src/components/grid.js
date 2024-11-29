@@ -77,7 +77,7 @@ function Grid() {
         <DropArea onDrop={handleDrop1x1} ele={toggle1x1}/>
     ];
     const dragGridData = [
-        <DraggableItem id={<Cell color='teal'/>} ele={<Cell color = 'teal'/>} />,
+        <DraggableItem id={<Cell color='blue'/>} ele={<Cell color = 'blue'/>} />,
         <DraggableItem id={<Cell color = 'green'/>} ele={<Cell color = 'green'/>} />,
         <DraggableItem id={<Cell color = 'yellow'/>} ele={<Cell color = 'yellow'/>} />
     ];
