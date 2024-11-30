@@ -21,10 +21,7 @@ function Grid() {
             <div
                 ref={drag}
                 style={{
-                    opacity: isDragging ? 0.5 : 1,
-                    width: '100px',
-                    height: '100px',
-                    backgroundColor: 'teal'
+                    opacity: isDragging ? 0.5 : 1
                 }}
             >
                 {ele}
@@ -86,6 +83,7 @@ function Grid() {
             <div className='grid-master'>
                 <DndProvider backend={HTML5Backend}>
                     <div className='drag-container'>
+                        <h2>Available tiles</h2>
                         {dragGridData.map((component, index) => (
                             <div className='drag-container-item'>{component}</div>
                         ))}

@@ -1,13 +1,16 @@
 import './App.css';
+import { BrowserRouter , Routes, Route } from "react-router-dom";
 import Grid from './components/grid.js';
+import HomePage from './components/home.js';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Grid/>
-      </header>
-    </div>
+    <BrowserRouter>
+        <Routes>
+          <Route path="/grid" element={<Grid/>} />
+          <Route path="/" element={<HomePage/>} />
+        </Routes>        
+      </BrowserRouter>
   );
 }
 
