@@ -7,7 +7,9 @@ import "../styles/grid.css";
 import Cell from "./cell.jsx";
 
 const Grid = () => {
-  const gridRowColSize = 5;
+  const [gridRowColSize, setGridRowColSize] = useState(5);
+  const [initDragableItemListSize, setInitDragableItemListSize] = useState(10);
+
   const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
@@ -97,26 +99,45 @@ const Grid = () => {
     });
   };
 
+  const calculateTitleGridWidth = () => {
+    if (initDragableItemListSize < gridRowColSize) return 1;
+    return Math.ceil(initDragableItemListSize / gridRowColSize);
+  };
+
   return (
     <div className="centered h-[100vh]">
-      <DndProvider backend={Backend}>
-        <div className="flex flex-row">
-          <div className="grid gap-4 grid-cols-2 overflow-y-auto mr-10">
-            {draggableItems.map((item) => (
-              <div key={item.id} className="drag-container-item">
-                <DraggableItem id={item.id} component={item.component} />
-              </div>
-            ))}
+      {console.log(gridRowColSize)}
+      {gridRowColSize > 0 && (
+        <DndProvider backend={Backend}>
+          <div className="flex flex-row">
+            <div
+              className="grid gap-4 overflow-y-auto mr-10"
+              style={{
+                gridTemplateColumns: `repeat(${calculateTitleGridWidth()}, minmax(0, 1fr))`,
+                gridTemplateRows: `repeat(${gridRowColSize}, minmax(0, 1fr))`,
+              }}
+            >
+              {draggableItems.map((item) => (
+                <div key={item.id} className="drag-container-item">
+                  <DraggableItem id={item.id} component={item.component} />
+                </div>
+              ))}
+            </div>
+            <div
+              className="grid gap-4"
+              style={{
+                gridTemplateColumns: `repeat(${gridRowColSize}, minmax(0, 1fr))`,
+              }}
+            >
+              {dropItems.map((_, index) => (
+                <div key={index} className="">
+                  <DropArea index={index} />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className={"grid gap-4 grid-cols-" + gridRowColSize}>
-            {dropItems.map((_, index) => (
-              <div key={index} className="">
-                <DropArea index={index} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </DndProvider>
+        </DndProvider>
+      )}
     </div>
   );
 };
