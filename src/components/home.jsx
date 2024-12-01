@@ -1,7 +1,7 @@
-import React from 'react';
-import '../styles/home.css';
-import logo from '../assests/TiloScopeLogo.png';
-import AuthForm from './authentication.js';
+import React from "react";
+import logo from "../assests/TiloScopeLogo.png";
+import "../styles/home.css";
+import AuthForm from "./authentication.jsx";
 
 const HomePage = () => {
   const handleEnterGame = () => {
@@ -15,7 +15,7 @@ const HomePage = () => {
         <img src={logo} alt="TiloScope Logo" className="homepage-logo" />
       </div>
       <div className="homepage-button-section">
-        <AuthForm/>
+        <AuthForm />
       </div>
     </div>
   );

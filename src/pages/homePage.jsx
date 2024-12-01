@@ -22,7 +22,7 @@ const HomePageV1 = () => {
         </motion.div>
       </div>
 
-      <div className="flex flex-col items-center md:justify-center md:items-center md:w-1/2">
+      <div className="flex flex-col items-center md:justify-center md:items-center md:w-2/3">
         <motion.div
           animate={{ scale: 1 }}
           initial={{ scale: 0 }}

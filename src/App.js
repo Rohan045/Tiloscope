@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Grid from "./components/grid.js";
-import HomePage from "./components/home.js";
+import Grid from "./components/grid.jsx";
+import HomePage from "./components/home.jsx";
 import HomePageV1 from "./pages/homePage.jsx";
 
 function App() {

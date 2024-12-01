@@ -24,4 +24,8 @@ code {
   .card {
     @apply rounded-2xl shadow-md p-5 w-fit;
   }
+
+  .centered {
+    @apply flex flex-col justify-center items-center;
+  }
 }
