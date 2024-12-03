@@ -3,37 +3,22 @@ import React, { useState } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
-import "../styles/grid.css";
-import Cell from "./cell.jsx";
 
-const Grid = () => {
-  const [gridRowColSize, setGridRowColSize] = useState(5);
-  const [initDragableItemListSize, setInitDragableItemListSize] = useState(10);
+const Grid = (props) => {
+  const { gridSize, gridData, tileData } = props.config;
+  const [gridRowColSize, setGridRowColSize] = useState(gridSize);
+  const [initDragableItemListSize, setInitDragableItemListSize] = useState(
+    tileData.length
+  );
+  const ItemType = "ITEM";
+  const [draggableItems, setDraggableItems] = useState(tileData);
+  const [dropItems, setDropItems] = useState(gridData);
 
   const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
   const Backend = isMobile ? TouchBackend : HTML5Backend;
-
-  const ItemType = "ITEM";
-
-  const [draggableItems, setDraggableItems] = useState([
-    { id: 1, component: <Cell color="blue" /> },
-    { id: 2, component: <Cell color="green" /> },
-    { id: 3, component: <Cell color="yellow" /> },
-    { id: 4, component: <Cell color="red" /> },
-    { id: 5, component: <Cell color="purple" /> },
-    { id: 6, component: <Cell color="orange" /> },
-    { id: 7, component: <Cell color="pink" /> },
-    { id: 8, component: <Cell color="cyan" /> },
-    { id: 9, component: <Cell color="magenta" /> },
-    { id: 10, component: <Cell color="lime" /> },
-  ]);
-
-  const [dropItems, setDropItems] = useState(
-    Array(gridRowColSize * gridRowColSize).fill(null)
-  );
 
   const DraggableItem = ({ id, component }) => {
     const [{ isDragging }, drag] = useDrag(() => ({
@@ -68,11 +53,9 @@ const Grid = () => {
 
     return (
       <div
+        className="tile"
         ref={drop}
         style={{
-          height: "100px",
-          width: "100px",
-          border: "0.5px dashed #ccc",
           backgroundColor: isOver ? "lightgreen" : "white",
         }}
       >
@@ -104,18 +87,27 @@ const Grid = () => {
     return Math.ceil(initDragableItemListSize / gridRowColSize);
   };
 
+  const getComputedStyle = () => {
+    if (isMobile) {
+      return {
+        gridTemplateRows: `repeat(${calculateTitleGridWidth()}, minmax(0, 1fr))`,
+        gridTemplateColumns: `repeat(${gridRowColSize}, minmax(0, 1fr))`,
+      };
+    }
+    return {
+      gridTemplateColumns: `repeat(${calculateTitleGridWidth()}, minmax(0, 1fr))`,
+      gridTemplateRows: `repeat(${gridRowColSize}, minmax(0, 1fr))`,
+    };
+  };
+
   return (
-    <div className="centered h-[100vh]">
-      {console.log(gridRowColSize)}
+    <div>
       {gridRowColSize > 0 && (
         <DndProvider backend={Backend}>
-          <div className="flex flex-row">
+          <div className="flex flex-col-reverse md:flex-row">
             <div
-              className="grid gap-4 overflow-y-auto mr-10"
-              style={{
-                gridTemplateColumns: `repeat(${calculateTitleGridWidth()}, minmax(0, 1fr))`,
-                gridTemplateRows: `repeat(${gridRowColSize}, minmax(0, 1fr))`,
-              }}
+              className="grid gap-3 overflow-y-auto mt-10 md:mr-10 md:mt-0"
+              style={getComputedStyle()}
             >
               {draggableItems.map((item) => (
                 <div key={item.id} className="drag-container-item">
@@ -124,7 +116,7 @@ const Grid = () => {
               ))}
             </div>
             <div
-              className="grid gap-4"
+              className="grid gap-3"
               style={{
                 gridTemplateColumns: `repeat(${gridRowColSize}, minmax(0, 1fr))`,
               }}

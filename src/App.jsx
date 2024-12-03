@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Grid from "./components/grid.jsx";
 import HomePage from "./components/home.jsx";
+import GamePage from "./pages/gamePage.jsx";
 import HomePageV1 from "./pages/homePage.jsx";
 
 function App() {
@@ -10,7 +10,6 @@ function App() {
     "bg-gradient-to-r from-blue-400 to-emerald-400 ",
     "bg-gradient-to-tr from-violet-500 to-orange-300 ",
     "bg-gradient-to-r from-cyan-500 to-teal-500 ",
-    "bg-gradient-to-r from-yellow-200 to-green-500",
   ];
 
   const getbackground = () => {
@@ -23,7 +22,7 @@ function App() {
     <div className={getbackground() + "text-xs md:text-md lg:text-lg"}>
       <BrowserRouter>
         <Routes>
-          <Route path="/grid" element={<Grid />} />
+          <Route path="/game" element={<GamePage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/v1" element={<HomePageV1 />} />
         </Routes>

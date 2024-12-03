@@ -3,11 +3,9 @@ import React from "react";
 const Cell = (props) => {
   return (
     <div
+      className="tile"
       style={{
-        width: "100px",
-        height: "100px",
         backgroundColor: props.color,
-        border: "1px solid ",
       }}
     ></div>
   );
