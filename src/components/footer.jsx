@@ -1,30 +1,17 @@
 import { motion } from "framer-motion";
 import { Bell, FolderOpen, LayoutGrid, Plus, Save, User } from "lucide-react";
 import React from "react";
-import logo from "../assests/main-title-image.png";
 import MenuButton from "./menuButton";
 
-const Header = () => {
+const Footer = () => {
   return (
-    <div className="flex flex-row justify-between p-3">
-      <motion.div
-        animate={{ scale: 1 }}
-        initial={{ scale: 0 }}
-        transition={{ type: "spring" }}
-        className="centered"
-      >
-        <img
-          src={logo}
-          alt="logo"
-          className="w-[100px] h-[100px] md:w-[150px] md:h-[150px]"
-        />
-      </motion.div>
-      <div className="mt-[20px]">
+    <div className="fixed bottom-0 w-full md:hidden">
+      <div className="flex flex-row justify-center p-5">
         <motion.div
           animate={{ scale: 1 }}
           initial={{ scale: 0 }}
           transition={{ type: "spring" }}
-          className="hidden md:flex md:flex-row"
+          className="flex flex-row"
         >
           <MenuButton
             config={{
@@ -82,4 +69,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Footer;

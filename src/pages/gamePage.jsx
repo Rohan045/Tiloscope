@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import Cell from "../components/cell";
+import Footer from "../components/footer";
 import Grid from "../components/grid";
 import Header from "../components/header";
 
@@ -23,7 +24,7 @@ const GamePage = () => {
   //   gridData[3] = tileData[0].component;
 
   return (
-    <>
+    <div className="relative">
       <Header />
       <motion.div
         animate={{ y: 10 }}
@@ -33,13 +34,15 @@ const GamePage = () => {
       >
         <Grid
           config={{
+            title: "Tiloscope Board",
             gridSize: gridSize,
             gridData: gridData,
             tileData: tileData,
           }}
         />
       </motion.div>
-    </>
+      <Footer />
+    </div>
   );
 };
 
