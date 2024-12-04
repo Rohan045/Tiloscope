@@ -9,7 +9,7 @@ const AuthFormV1 = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate("/grid");
+    navigate("/feed");
   };
   const handleChange = (e) => {
     const { name, value } = e.target;

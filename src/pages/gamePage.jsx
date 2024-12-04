@@ -38,6 +38,7 @@ const GamePage = () => {
             gridSize: gridSize,
             gridData: gridData,
             tileData: tileData,
+            feedGrid: false
           }}
         />
       </motion.div>

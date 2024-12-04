@@ -3,6 +3,7 @@ import "./App.css";
 import HomePage from "./components/home.jsx";
 import GamePage from "./pages/gamePage.jsx";
 import HomePageV1 from "./pages/homePage.jsx";
+import Feed from "./pages/feed.jsx";
 
 function App() {
   const backgroundColorList = [
@@ -23,8 +24,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/game" element={<GamePage />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="/v1" element={<HomePageV1 />} />
+          <Route path="/v1" element={<HomePage />} />
+          <Route path="/" element={<HomePageV1 />} />
+          <Route path="/feed" element={<Feed />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -5,7 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 
 const Grid = (props) => {
-  const { title, gridSize, gridData, tileData } = props.config;
+  const { title, gridSize, gridData, tileData, feedGrid } = props.config;
   const [gridRowColSize, setGridRowColSize] = useState(gridSize);
   const [initDragableItemListSize, setInitDragableItemListSize] = useState(
     tileData.length
@@ -81,7 +81,8 @@ const Grid = (props) => {
       return newDropItems;
     });
   };
-
+  const style = 'flex flex-col bg-black rounded-xl shadow-xl h-fit px-5 pb-5';
+  const feedStyle = 'flex flex-col bg-transparent rounded-xl h-fit px-5 pb-5';
   const calculateTitleGridWidth = () => {
     if (initDragableItemListSize < gridRowColSize) return 1;
     return Math.ceil(initDragableItemListSize / gridRowColSize);
@@ -101,7 +102,7 @@ const Grid = (props) => {
   };
 
   return (
-    <div className="flex flex-col bg-black rounded-xl shadow-xl h-fit px-5 pb-5">
+    <div className={feedGrid ? feedStyle : style}>
       <span className="font-bold text-white my-3">🎨 {title}</span>
       {gridRowColSize > 0 && (
         <DndProvider backend={Backend}>
