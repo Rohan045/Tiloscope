@@ -11,7 +11,7 @@ function Sidebar() {
         navigate("/");
     }
     return <>
-        <div className='h-screen w-1/4 border-solid border-2 divide-y'>
+        <div className='bg-gradient-to-r from-white to-cyan-500 h-screen w-1/4 divide-y divide-teal-200'>
             <motion.div
                 animate={{ scale: 1 }}
                 initial={{ scale: 0 }}

@@ -8,7 +8,7 @@ function Feed() {
     return <>
         <div style={{display:'flex'}}>
             <Sidebar />
-            <div className='overflow-y-scroll border-solid border-r-2 border-t-2 scrollbar-hide h-screen w-2/4 divide-y'>
+            <div className='overflow-y-scroll border-solid border-r-2 border-l-2 border-l-teal-200 border-r-orange-200 scrollbar-hide h-screen w-2/4 divide-y divide-teal-200'>
                 <UserGrid color='red' />
                 <UserGrid color='blue' />
                 <UserGrid color='black' />

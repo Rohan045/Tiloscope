@@ -82,7 +82,7 @@ const Grid = (props) => {
     });
   };
   const style = 'flex flex-col bg-black rounded-xl shadow-xl h-fit px-5 pb-5';
-  const feedStyle = 'flex flex-col bg-transparent rounded-xl h-fit px-5 pb-5';
+  const feedStyle = 'flex flex-col bg-transparent from-white to-cyan-500 rounded-xl h-fit px-5 pb-5';
   const calculateTitleGridWidth = () => {
     if (initDragableItemListSize < gridRowColSize) return 1;
     return Math.ceil(initDragableItemListSize / gridRowColSize);

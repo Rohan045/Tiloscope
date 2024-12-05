@@ -7,7 +7,7 @@ function UserGrid(props) {
     const gridData = Array(Math.pow(gridSize, 2)).fill(null);
     const tileData = [];
     return <>
-        <div class='md:flex items-end'>
+        <div class='md:flex items-end bg-gradient-to-l from-orange-300 to-cyan-500'>
             <Grid
                 config={{
                     title: "TiloScope Board",
