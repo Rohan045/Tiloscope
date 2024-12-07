@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { TouchBackend } from "react-dnd-touch-backend";
+import { useDrag, useDrop } from "react-dnd";
+
 
 const Grid = (props) => {
   const { title, gridSize, gridData, tileData, feedGrid } = props.config;
@@ -13,13 +12,10 @@ const Grid = (props) => {
   const ItemType = "ITEM";
   const [draggableItems, setDraggableItems] = useState(tileData);
   const [dropItems, setDropItems] = useState(gridData);
-
   const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
-  const Backend = isMobile ? TouchBackend : HTML5Backend;
-
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
   const DraggableItem = ({ id, component }) => {
     const [{ isDragging }, drag] = useDrag(() => ({
       type: ItemType,
@@ -105,7 +101,6 @@ const Grid = (props) => {
     <div className={feedGrid ? feedStyle : style}>
       <span className="font-bold text-white my-3">🎨 {title}</span>
       {gridRowColSize > 0 && (
-        <DndProvider backend={Backend}>
           <div className="flex flex-col-reverse md:flex-row">
             <div
               className="grid gap-3 overflow-y-auto mt-10 md:mr-10 md:mt-0"
@@ -130,7 +125,6 @@ const Grid = (props) => {
               ))}
             </div>
           </div>
-        </DndProvider>
       )}
     </div>
   );

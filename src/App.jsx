@@ -4,6 +4,9 @@ import HomePage from "./components/home.jsx";
 import GamePage from "./pages/gamePage.jsx";
 import HomePageV1 from "./pages/homePage.jsx";
 import Feed from "./pages/feed.jsx";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
 
 function App() {
   const backgroundColorList = [
@@ -12,7 +15,11 @@ function App() {
     "bg-gradient-to-tr from-violet-500 to-orange-300 ",
     "bg-gradient-to-r from-cyan-500 to-teal-500 ",
   ];
-
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+  const Backend = isMobile ? TouchBackend : HTML5Backend;
   const getbackground = () => {
     return backgroundColorList[
       Math.floor(Math.random() * backgroundColorList.length)
@@ -21,14 +28,16 @@ function App() {
 
   return (
     <div className={getbackground() + "text-xs md:text-md lg:text-lg"}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/game" element={<GamePage />} />
-          <Route path="/v1" element={<HomePage />} />
-          <Route path="/" element={<HomePageV1 />} />
-          <Route path="/feed" element={<Feed />} />
-        </Routes>
-      </BrowserRouter>
+      <DndProvider backend={Backend}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/game" element={<GamePage />} />
+            <Route path="/v1" element={<HomePage />} />
+            <Route path="/" element={<HomePageV1 />} />
+            <Route path="/feed" element={<Feed />} />
+          </Routes>
+        </BrowserRouter>
+      </DndProvider>
     </div>
   );
 }
