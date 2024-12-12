@@ -15,7 +15,7 @@ function UserGrid(props) {
         setUpvotes(upvotes + 1);
     }
     return <>
-        <div class='md:flex items-end bg-gradient-to-l from-orange-300 to-cyan-500'>
+        <div class='md:flex items-end bg-gradient-to-l from-orange-300 to-cyan-500 w-full'>
             <Grid
                 config={{
                     title: "TiloScope Board",
@@ -25,17 +25,17 @@ function UserGrid(props) {
                     feedGrid: true
                 }}
             />
-            <div class='inline'>
+            <div class='inline w-1/3'>
                 <UserGridCard name={props.name} rank={props.rank} upvotes={upvotes}/>
-                <div class='flex pb-[1px] pt-[4px]'>
-                    <div class='inline'>
-                        <button class='justify-items-center w-[100px] h-[50px] bg-transparent hover:bg-cyan-600 rounded-xl shadow-xl' onClick={upvoteHandle} disabled={upvoted}>
+                <div class='flex pb-[12px] pt-[12px]'>
+                    <div class='w-1/2'>
+                        <button class='justify-items-center w-full h-[50px] bg-transparent hover:bg-cyan-600 rounded-xl shadow-2xl' onClick={upvoteHandle} disabled={upvoted}>
                             {upvoted ? <ArrowBigUp class='fill-black w-full'/> : <ArrowBigUp class='hover:animate-bounce hover:fill-black w-full' />}
                         </button>
                     </div>
                     <div class='w-[4px]' />
-                    <div class='inline pb-[12px]'>
-                        <button class='justify-items-center w-[100px] h-[50px] bg-transparent hover:bg-cyan-600 rounded-xl shadow-xl'>
+                    <div class='w-1/2'>
+                        <button class='justify-items-center w-full h-[50px] bg-transparent hover:bg-cyan-600 rounded-xl shadow-2xl'>
                             <MessageCircle />
                         </button>
                     </div>
