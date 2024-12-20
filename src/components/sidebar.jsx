@@ -7,11 +7,15 @@ import { useNavigate } from "react-router-dom";
 function Sidebar() {
     const style = 'space-x-2 pt-5 flex place-content-center rounded-r-lg hover:bg-cyan-600 w-full h-[70px] bg-transparent';
     const navigate = useNavigate();
-    const handleLogOut = () => {
-        navigate("/");
+    const handleButton = (button) => () => {
+        if(button === 'logOut'){
+            navigate("/");
+        }else if(button === 'boards'){
+            navigate("/game");
+        }
     }
     return <>
-        <div className='bg-gradient-to-r from-white to-cyan-500 h-screen sm:inline hidden w-1/4 divide-y divide-teal-200'>
+        <div className='bg-gradient-to-r from-white to-cyan-500 h-screen sm:inline hidden sm:w-1/4 w-full divide-y divide-teal-200'>
             <motion.div
                 animate={{ scale: 1 }}
                 initial={{ scale: 0 }}
@@ -33,10 +37,10 @@ function Sidebar() {
             <button class={style}>
                 <ShieldHalf/><div className='font-serif font-meduim text-xl'>Leaderboard</div>
             </button>
-            <button class={style}>
+            <button class={style} onClick={handleButton('boards')}>
                 <Brush/><div className='font-serif font-meduim text-xl'>Boards</div>
             </button>
-            <button class={style} onClick={handleLogOut}>
+            <button class={style} onClick={handleButton('logOut')}>
                 <LogOut/><div className='font-serif font-meduim text-xl'>Log Out</div>
             </button>
         </div>
