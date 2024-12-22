@@ -10,10 +10,7 @@ const Chipmark = (props) => {
       }}
       onClick={() => onClickFn()}
     >
-      <div
-        className="flex flex-col justify-center rounded-full border p-3 mr-2"
-        style={{ borderWidth: isSelected ? "medium" : "thin" }}
-      >
+      <div className="flex flex-col justify-center rounded-full border p-3 mr-2">
         {icon}
       </div>
       <div className="flex flex-col justify-center">{text}</div>
