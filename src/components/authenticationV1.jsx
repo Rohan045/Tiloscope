@@ -20,7 +20,7 @@ const AuthFormV1 = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confPassword) {
+    if (isSignup && formData.password !== formData.confPassword) {
       alert("Passwords do not match");
       return;
     }
@@ -135,7 +135,6 @@ const AuthFormV1 = () => {
             name="description"
             value={formData.description}
             onChange={handleChange}
-            required
           />
         </div>
       )}
