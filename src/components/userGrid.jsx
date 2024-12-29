@@ -19,8 +19,9 @@ function UserGrid(props) {
 
         <Board
           config={{
-            rows: 3,
-            cols: 3,
+            rows: 5,
+            cols: 5,
+            name: <span>Board 1</span>,
             squareDataList: [
               {
                 squareId: 1,
@@ -60,6 +61,86 @@ function UserGrid(props) {
               {
                 squareId: 2,
                 playerBoardSquareId: 2,
+                tiles: [],
+              },
+              {
+                squareId: 3,
+                playerBoardSquareId: 3,
+                tiles: [],
+              },
+              {
+                squareId: 3,
+                playerBoardSquareId: 3,
+                tiles: [],
+              },
+              {
+                squareId: 1,
+                playerBoardSquareId: 1,
+                tiles: [],
+              },
+              {
+                squareId: 2,
+                playerBoardSquareId: 2,
+                tiles: [],
+              },
+              {
+                squareId: 3,
+                playerBoardSquareId: 3,
+                tiles: [],
+              },
+              {
+                squareId: 1,
+                playerBoardSquareId: 1,
+                tiles: [],
+              },
+              {
+                squareId: 2,
+                playerBoardSquareId: 2,
+                tiles: [],
+              },
+              {
+                squareId: 3,
+                playerBoardSquareId: 3,
+                tiles: [],
+              },
+              {
+                squareId: 1,
+                playerBoardSquareId: 1,
+                tiles: [],
+              },
+              {
+                squareId: 2,
+                playerBoardSquareId: 2,
+                tiles: [],
+              },
+              {
+                squareId: 3,
+                playerBoardSquareId: 3,
+                tiles: [],
+              },
+              {
+                squareId: 3,
+                playerBoardSquareId: 3,
+                tiles: [],
+              },
+              {
+                squareId: 3,
+                playerBoardSquareId: 3,
+                tiles: [],
+              },
+              {
+                squareId: 1,
+                playerBoardSquareId: 1,
+                tiles: [],
+              },
+              {
+                squareId: 2,
+                playerBoardSquareId: 2,
+                tiles: [],
+              },
+              {
+                squareId: 3,
+                playerBoardSquareId: 3,
                 tiles: [],
               },
               {

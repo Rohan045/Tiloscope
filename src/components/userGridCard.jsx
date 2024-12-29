@@ -11,7 +11,7 @@ function UserGridCard(props) {
   };
   return (
     <>
-      <div class="rounded-lg pl-5 mt-7">
+      <div class="rounded-lg mt-10">
         <div class="flex pb-2">
           <div class="rounded-full h-[45px] w-[45px] border bg-slate-800">
             {props.imageSrc ? (
@@ -25,7 +25,7 @@ function UserGridCard(props) {
             )}
           </div>
           <div class="w-4"></div>
-          <div class="place-content-center text-l">{props.name}</div>
+          <div class="flex flex-col font-bold justify-center">{props.name}</div>
         </div>
         <div class="flex justify-items-end my-3">
           <div class="flex flex-row justify-between text-xs w-full">
