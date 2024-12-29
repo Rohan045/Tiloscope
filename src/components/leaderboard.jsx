@@ -30,8 +30,8 @@ function Leaderboard() {
         }
     ];
     return <>
-        <div class='sm:inline w-1/4 hidden bg-gradient-to-r from-orange-300 to-pink-500 divide-y'>
-            <div class='p-2 h-[50px] font-bold font-mono'>Leaderboard</div>
+        <div class='md:inline w-1/4 hidden bg-transparent'>
+            <div class='p-2 h-[100px] font-bold font-mono text-4xl'>Leaderboard</div>
             {leaderBoard.map((user) => {
                 return <LeaderboardUser name={user.name} points={user.points} rank={user.rank} />
             })}

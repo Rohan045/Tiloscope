@@ -99,10 +99,10 @@ const Grid = (props) => {
 
   return (
     <div className={feedGrid ? feedStyle : style}>
-      <span className="font-bold text-white my-3">🎨 {title}</span>
+      {feedGrid ? <></>:<span className="font-bold text-white my-3">🎨 {title}</span>}
       {gridRowColSize > 0 && (
           <div className="flex flex-col-reverse md:flex-row">
-            <div
+            {feedGrid ? <></> : <div
               className="grid gap-3 overflow-y-auto mt-10 md:mr-10 md:mt-0"
               style={getComputedStyle()}
             >
@@ -111,7 +111,7 @@ const Grid = (props) => {
                   <DraggableItem id={item.id} component={item.component} />
                 </div>
               ))}
-            </div>
+            </div>}
             <div
               className="grid gap-3"
               style={{

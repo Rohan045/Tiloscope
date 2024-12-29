@@ -5,7 +5,7 @@ import {House, UserPen, ShieldHalf, Brush, LogOut} from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
-    const style = 'space-x-2 pt-5 flex place-content-center rounded-r-lg hover:bg-cyan-600 w-full h-[70px] bg-transparent';
+    const style = 'space-x-2 pt-5 flex place-content-center rounded-2xl hover:bg-slate-800 w-full h-[70px] bg-transparent';
     const navigate = useNavigate();
     const handleButton = (button) => () => {
         if(button === 'logOut'){
@@ -15,7 +15,7 @@ function Sidebar() {
         }
     }
     return <>
-        <div className='bg-gradient-to-r from-white to-cyan-500 h-screen sm:inline hidden sm:w-1/4 w-full divide-y divide-teal-200'>
+        <div className='bg-transparent h-screen sm:inline hidden w-1/4'>
             <motion.div
                 animate={{ scale: 1 }}
                 initial={{ scale: 0 }}

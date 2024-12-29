@@ -9,25 +9,25 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 
 function App() {
-  const backgroundColorList = [
-    "bg-gradient-to-r from-purple-500 to-indigo-500 ",
-    "bg-gradient-to-r from-blue-400 to-emerald-400 ",
-    "bg-gradient-to-tr from-violet-500 to-orange-300 ",
-    "bg-gradient-to-r from-cyan-500 to-teal-500 ",
-  ];
+  // const backgroundColorList = [
+  //   "bg-gradient-to-r from-purple-500 to-indigo-500 ",
+  //   "bg-gradient-to-r from-blue-400 to-emerald-400 ",
+  //   "bg-gradient-to-tr from-violet-500 to-orange-300 ",
+  //   "bg-gradient-to-r from-cyan-500 to-teal-500 ",
+  // ];
   const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
   const Backend = isMobile ? TouchBackend : HTML5Backend;
-  const getbackground = () => {
-    return backgroundColorList[
-      Math.floor(Math.random() * backgroundColorList.length)
-    ];
-  };
+  // const getbackground = () => {
+  //   return backgroundColorList[
+  //     Math.floor(Math.random() * backgroundColorList.length)
+  //   ];
+  // };
 
   return (
-    <div className={getbackground() + "text-xs md:text-md lg:text-lg"}>
+    <div className={"bg-black text-xs text-white md:text-md lg:text-lg"}>
       <DndProvider backend={Backend}>
         <BrowserRouter>
           <Routes>

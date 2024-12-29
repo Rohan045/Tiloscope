@@ -1,22 +1,43 @@
 import React from 'react';
+import { ArrowBigUp } from 'lucide-react';
+import { useState } from 'react';
 
 function UserGridCard(props) {
+    const [upvotes, setUpvotes] = useState(props.upvotes);
+    const [upvoted, setUpvoted] = useState(false);
+    const upvoteHandle = () => {
+        setUpvoted(true);
+        setUpvotes(upvotes + 1);
+    }
     return <>
-        <div class='shadow-2xl rounded-lg font-serif bg-gradient-to-r from-indigo to-gray-300 w-full md:p-0 p-3'>
-            <div class='flex rounded-lg p-2 border-b-2 border-b-orange-200'>
-                <div class='rounded-full h-[70px] w-[70px] border-solid border-2'>
-                    
+        <div class='rounded-lg font-serif pl-5'>
+            <div class='flex pb-2'>
+                <div class='rounded-full h-[45px] w-[45px] border-solid border-2 bg-slate-800'>
+                    {props.imageSrc ? <img
+                        src={props.imageSrc}
+                        alt="dp"
+                        className="w-[100px] h-[100px] md:w-[200px] md:h-[200px]"
+                    /> :
+                        <></>}
                 </div>
-                <div class='h-[70px] place-content-center pl-4 text-xl'>{props.name}</div>
+                <div class='w-4'></div>
+                <div class='place-content-center text-l'>{props.name}</div>
             </div>
-            <div class='flex'>
-                <div class='p-3 w-1/2 rounded-tl-lg border-solid border-r-2 border-r-orange-200'>
-                    Rank<br/>#{props.rank}
+            <div class='flex justify-items-end'>
+                <div class='inline'>
+                    <div class='rounded-tl-lg text-sm'>
+                        Rank - #{props.rank}
+                    </div>
+                    <div class='rounded-tr-lg text-sm'>
+                        Upvotes - {upvotes}
+                    </div>
                 </div>
-                <div class='p-3 w-1/2 rounded-tr-lg border-solid border-l-2 border-l-orange-200'>
-                    Upvotes<br/>{props.upvotes}
-                </div>
+                <button class='flex' onClick={upvoteHandle} disabled={upvoted}>
+                    {upvoted ? <ArrowBigUp class='fill-white w-full' /> : <ArrowBigUp class='hover:animate-bounce hover:fill-black w-full' />}
+                    <div class='place-content-center'>Upvote</div>
+                </button>
             </div>
+            <div class='h-2'></div>
         </div>
     </>
 }
