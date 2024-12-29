@@ -1,22 +1,10 @@
 import React from "react";
 import Board from "./Board";
-import UserGridCard from "./UserGridCard";
 
-function UserGrid(props) {
-  const gridSize = 5;
-  const gridData = Array(Math.pow(gridSize, 2)).fill(null);
-  const tileData = [];
+const CreateBoard = () => {
   return (
-    <>
-      <div class="inline items-end">
-        <div class="inline mb-7">
-          <UserGridCard
-            name={props.name}
-            rank={props.rank}
-            upvotes={props.upvotes}
-          />
-        </div>
-
+    <div className="relative">
+      <div className="flex flex-row justify-center h-[100vh]">
         <Board
           config={{
             rows: 3,
@@ -68,12 +56,31 @@ function UserGrid(props) {
                 tiles: [],
               },
             ],
-            tileDataList: [],
+            tileDataList: [
+              {
+                id: 1,
+                name: "Tile 1",
+                description: "This is tile 1",
+                html: "<strong>Tile 1</strong>",
+              },
+              {
+                id: 2,
+                name: "Tile 2",
+                description: "This is tile 2",
+                html: "<strong>Tile 2</strong>",
+              },
+              {
+                id: 3,
+                name: "Tile 3",
+                description: "This is tile 3",
+                html: "<strong>Tile 3</strong>",
+              },
+            ],
           }}
         />
       </div>
-    </>
+    </div>
   );
-}
+};
 
-export default UserGrid;
+export default CreateBoard;

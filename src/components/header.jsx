@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
-import { Bell, FolderOpen, LayoutGrid, Plus, Save, User } from "lucide-react";
+import { Info } from "lucide-react";
 import React from "react";
 import logo from "../assests/main-title-image.png";
-import MenuButton from "./menuButton";
 
 const Header = () => {
   return (
-    <div className="flex flex-row justify-between p-3">
+    <div className="sticky bg-zinc-800 top-0 z-10 flex flex-row justify-between p-1 px-5 border-b shadow-sm">
       <motion.div
         animate={{ scale: 1 }}
         initial={{ scale: 0 }}
@@ -16,67 +15,17 @@ const Header = () => {
         <img
           src={logo}
           alt="logo"
-          className="w-[100px] h-[100px] md:w-[150px] md:h-[150px]"
+          className="w-[100px] h-[100px] md:w-[70px] md:h-[70px]"
         />
       </motion.div>
-      <div className="mt-[20px]">
-        <motion.div
-          animate={{ scale: 1 }}
-          initial={{ scale: 0 }}
-          transition={{ type: "spring" }}
-          className="hidden md:flex md:flex-row"
-        >
-          <MenuButton
-            config={{
-              icon: <Plus strokeWidth={2} />,
-              text: "New Board",
-              onClickFn: () => {
-                alert("Save");
-              },
-            }}
-          />
-          <MenuButton
-            config={{
-              icon: <FolderOpen strokeWidth={2} />,
-              text: "Open Boards",
-              onClickFn: () => {
-                alert("Save");
-              },
-            }}
-          />
-          <MenuButton
-            config={{
-              icon: <Save strokeWidth={2} />,
-              text: "Save Board",
-              onClickFn: () => {
-                alert("Save");
-              },
-            }}
-          />
-          <MenuButton
-            config={{
-              icon: <Bell strokeWidth={2} />,
-              text: "Notifications",
-              onClickFn: () => {
-                alert("Notifications");
-              },
-            }}
-          />
-          <MenuButton
-            config={{
-              icon: <LayoutGrid strokeWidth={2} />,
-              text: "All Boards",
-              onClickFn: () => {},
-            }}
-          />
-          <MenuButton
-            config={{
-              icon: <User strokeWidth={2} />,
-              text: "",
-              onClickFn: () => {},
-            }}
-          />
-        </motion.div>
+
+      <div className="flex flex-row">
+        <div className="centered mr-2">
+          <Info />
+        </div>
+        <div className="centered">
+          <span>About</span>
+        </div>
       </div>
     </div>
   );
