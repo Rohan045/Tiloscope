@@ -7,7 +7,7 @@ import { useUserManagementStore } from "../stores/UserManagementStore";
 
 function Sidebar() {
   const style =
-    "space-x-2 pt-5 flex place-content-center cursor-pointer w-full h-[70px] hover:bg-zinc-800 ";
+    "space-x-2 pt-5 flex place-content-center cursor-pointer w-full h-[70px] hover:bg-zinc-700 ";
   const navigate = useNavigate();
 
   const { loggedInUserInfo } = useUserManagementStore();
