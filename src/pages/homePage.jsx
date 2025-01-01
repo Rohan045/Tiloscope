@@ -20,13 +20,13 @@ function HomePage() {
     <>
       <Header />
       <div className="flex flex-row mx-[10%]">
-        <div className="w-1/4 border-r shadow-sm">
+        <div className="w-1/4 border-solid border-zinc-700 border-r shadow-sm">
           <Sidebar />
         </div>
         <div className="overflow-y-scroll scrollbar-hide h-screen w-2/4">
           <Outlet />
         </div>
-        <div className="w-1/4 border-l shadow-sm">
+        <div className="w-1/4 border-solid border-zinc-700 border-l shadow-sm">
           <Leaderboard />
         </div>
       </div>

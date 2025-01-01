@@ -2,10 +2,11 @@ import { Gamepad2, UserPlus } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postApiCall } from "../interceptors/ApiCallInterceptors";
-import "../styles/authentication.css";
+import { useUserManagementStore } from "../stores/UserManagementStore";
 import Chipmark from "./Chipmark";
 
 const Authentication = () => {
+  const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
@@ -26,14 +27,22 @@ const Authentication = () => {
     }
 
     if (isSignup) {
-      const response = await postApiCall("/createPlayer", formData);
-      if (response.data !== undefined) {
+      try {
+        const response = await postApiCall("/auth/player", formData);
         alert("Registration successful ! Please login to proceed");
         setIsSignup(false);
+      } catch (e) {
+        alert("Registration failed! Please try again");
       }
     } else {
-      alert(`Logging in with email: ${formData.email}`);
-      handleNavigate();
+      try {
+        const response = await postApiCall("/auth/login", formData);
+        localStorage.setItem("token", response.data?.token);
+        setLoggedInUserInfo(response.data?.player);
+        handleNavigate();
+      } catch (e) {
+        alert("Login failed! Please try again");
+      }
     }
   };
 

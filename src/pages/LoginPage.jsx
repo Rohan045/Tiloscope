@@ -27,7 +27,7 @@ const LoginPage = () => {
           animate={{ scale: 1 }}
           initial={{ scale: 0 }}
           transition={{ type: "spring" }}
-          className="card bg-zinc-800"
+          className="card bg-zinc-700"
         >
           <div className="flex flex-col  px-5 md:p-10">
             <span className="text-2xl md:text-5xl">

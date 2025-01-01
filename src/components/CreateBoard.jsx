@@ -1,27 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getApiCall } from "../interceptors/ApiCallInterceptors";
 import Board from "./Board";
 
 const CreateBoard = () => {
+  const [boardList, setBoardList] = useState();
+
+  useEffect(() => {
+    const fetchBoardList = async () => {
+      const response = await getApiCall("/board/getAllBoards");
+      setBoardList(response);
+    };
+    fetchBoardList();
+  }, []);
+
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row border-b justify-between p-5 text-sm">
+      <div className="flex flex-row border-solid border-zinc-700 border-b justify-between p-5 text-sm">
         <div className="flex flex-row">
           <input
-            className="mr-3 p-2 bg-black"
+            className="mr-3 w-[170px]"
             type="text"
             placeholder="Enter board name"
           />
-          <select className="p-2 bg-black">
+          <select className="p-2 w-[170px] bg-black">
             <option value="-1">Select board type</option>
-            <option value="3x3">3x3</option>
-            <option value="4x4">4x4</option>
-            <option value="5x5">5x5</option>
+            {boardList != undefined &&
+              boardList.map((board) => (
+                <option key={board.id} value={board.id}>
+                  {board.rows}x{board.cols}
+                </option>
+              ))}
           </select>
         </div>
-        <button className="bg-green-600 px-3 hover:bg-green-800 active:bg-green-900">
-          Create Board
-        </button>
+        <button>Create Board</button>
       </div>
+
       <div className="centered h-[70vh]">
         <Board
           config={{

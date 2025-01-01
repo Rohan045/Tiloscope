@@ -9,6 +9,83 @@ body {
     sans-serif;
 }
 
+input,
+select,
+textarea {
+  background: black;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 1rem;
+}
+
+button {
+  background-color: #1e90ff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0f62ff;
+}
+
+.auth-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.auth-form {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px 30px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.auth-form h2 {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+}
+
+.auth-button {
+  width: 100%;
+}
+
+.toggle-text {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.toggle-link {
+  color: #1e90ff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 @layer components {
   .glowing-card {
     @apply rounded-2xl shadow-2xl shadow-indigo-700 bg-white p-5 w-fit h-fit;

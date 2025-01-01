@@ -13,7 +13,7 @@ function UserGridCard(props) {
     <>
       <div class="rounded-lg mt-10">
         <div class="flex pb-2">
-          <div class="rounded-full h-[45px] w-[45px] border bg-slate-800">
+          <div class="rounded-full h-[45px] w-[45px] border-solid border-zinc-700 border bg-slate-800">
             {props.imageSrc ? (
               <img
                 src={props.imageSrc}
