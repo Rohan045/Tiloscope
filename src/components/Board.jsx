@@ -50,17 +50,19 @@ const Board = (props) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-between">
-        <IconInfo
-          config={{
-            icon: <Brush />,
-            text: name,
-          }}
-        />
-        <span>{moveSaveStatus}</span>
+        <div className="vertical-centered">
+          <IconInfo
+            config={{
+              icon: <Brush />,
+              text: name,
+            }}
+          />
+        </div>
+        <span className="vertical-centered text-sm">{moveSaveStatus}</span>
       </div>
-      <div className="flex flex-col mt-5">
+      <div className="flex flex-col mt-5 px-7">
         <div
-          className={`grid gap-0 h-fit`}
+          className="grid gap-0 h-fit w-fit"
           style={{
             gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
             gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
@@ -79,9 +81,12 @@ const Board = (props) => {
 
         {tileList.length > 0 && (
           <div
-            className="flex flex-row mt-5"
+            className="grid gap-0 w-fit mt-5"
             style={{
               gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+              gridTemplateRows: `repeat(${Math.ceil(
+                tileList.length / cols
+              )}, minmax(0, 1fr))`,
             }}
           >
             {tileList.map((tile, index) => (

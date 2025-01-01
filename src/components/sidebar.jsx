@@ -63,12 +63,6 @@ function Sidebar() {
             My Boards
           </span>
         </div>
-        <div class={style} onClick={handleButton("boards")}>
-          <Brush />
-          <span className="font-meduim pl-5 text-start w-[150px]">
-            All Boards
-          </span>
-        </div>
         <div class={style} onClick={handleButton("logOut")}>
           <LogOut />
           <span className="font-meduim pl-5 text-start w-[150px]">Log Out</span>
