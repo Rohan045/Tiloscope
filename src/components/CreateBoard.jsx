@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { getApiCall } from "../interceptors/ApiCallInterceptors";
+import { getApiCall, postApiCall } from "../interceptors/ApiCallInterceptors";
+import { useUserManagementStore } from "../stores/UserManagementStore";
+
 import Board from "./Board";
 
 const CreateBoard = () => {
+  const { loggedInUserInfo } = useUserManagementStore();
   const [boardList, setBoardList] = useState();
+  const [createdBoard, setCreatedBoard] = useState();
+  const [inputForm, setInputForm] = useState({
+    boardId: "",
+  });
 
   useEffect(() => {
     const fetchBoardList = async () => {
@@ -13,18 +20,60 @@ const CreateBoard = () => {
     fetchBoardList();
   }, []);
 
+  const handleBoardTypeChange = (boardId) => {
+    inputForm.boardId = boardId;
+    setInputForm(inputForm);
+  };
+
+  const createBoard = async (e) => {
+    e.preventDefault();
+    setCreatedBoard(undefined);
+
+    if (inputForm.boardId === "-1" || inputForm.boardId === "") {
+      alert("Select board type");
+      return;
+    }
+    const playerEmail = loggedInUserInfo.email;
+    const boardId = inputForm.boardId;
+
+    const response = await postApiCall(
+      `/playerboard/${playerEmail}/${boardId}`,
+      null,
+      true
+    );
+
+    setCreatedBoard(response);
+    alert("Board created successfully");
+  };
+
+  const convertToThisList = (playerBoardSquares) => {
+    const thisList = [];
+    playerBoardSquares.forEach((square) => {
+      const thisSquare = {
+        squareId: square.squareId,
+        playerBoardSquareId: square.id,
+        tiles: square.tiles === null ? [] : square.tiles,
+      };
+      thisList.push(thisSquare);
+    });
+
+    return thisList;
+  };
+
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row border-solid border-zinc-700 border-b justify-between p-5 text-sm">
+      <form
+        className="flex flex-row border-solid border-zinc-700 border-b justify-between p-5 text-sm"
+        onSubmit={(e) => createBoard(e)}
+      >
         <div className="flex flex-row">
-          <input
-            className="mr-3 w-[170px]"
-            type="text"
-            placeholder="Enter board name"
-          />
-          <select className="p-2 w-[170px] bg-black">
+          <select
+            className="p-2 w-[170px] bg-black"
+            onChange={(e) => handleBoardTypeChange(e.target.value)}
+            required
+          >
             <option value="-1">Select board type</option>
-            {boardList != undefined &&
+            {boardList !== undefined &&
               boardList.map((board) => (
                 <option key={board.id} value={board.id}>
                   {board.rows}x{board.cols}
@@ -32,84 +81,23 @@ const CreateBoard = () => {
               ))}
           </select>
         </div>
-        <button>Create Board</button>
-      </div>
+        <button type="submit">Create Board</button>
+      </form>
 
-      <div className="centered h-[70vh]">
-        <Board
-          config={{
-            rows: 3,
-            cols: 3,
-            name: <span className="text-2xl font-bold mx-2">Board New</span>,
-            squareDataList: [
-              {
-                squareId: 1,
-                playerBoardSquareId: 1,
-                tiles: [],
-              },
-              {
-                squareId: 2,
-                playerBoardSquareId: 2,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-              {
-                squareId: 1,
-                playerBoardSquareId: 1,
-                tiles: [],
-              },
-              {
-                squareId: 2,
-                playerBoardSquareId: 2,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-              {
-                squareId: 1,
-                playerBoardSquareId: 1,
-                tiles: [],
-              },
-              {
-                squareId: 2,
-                playerBoardSquareId: 2,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-            ],
-            tileDataList: [
-              {
-                id: 1,
-                name: "Tile 1",
-                description: "This is tile 1",
-                html: "<strong>Tile 1</strong>",
-              },
-              {
-                id: 2,
-                name: "Tile 2",
-                description: "This is tile 2",
-                html: "<strong>Tile 2</strong>",
-              },
-              {
-                id: 3,
-                name: "Tile 3",
-                description: "This is tile 3",
-                html: "<strong>Tile 3</strong>",
-              },
-            ],
-          }}
-        />
+      <div className="centered h-[70vh] overflow-auto">
+        {createdBoard !== undefined && (
+          <Board
+            config={{
+              rows: createdBoard?.board?.rows,
+              cols: createdBoard?.board?.cols,
+              name: <span className="text-2xl font-bold mx-2">Board New</span>,
+              squareDataList: convertToThisList(
+                createdBoard.playerBoardSquares
+              ),
+              tileDataList: loggedInUserInfo?.tiles,
+            }}
+          />
+        )}
       </div>
     </div>
   );

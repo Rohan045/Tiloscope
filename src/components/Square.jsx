@@ -18,7 +18,7 @@ const Square = (props) => {
 
   return (
     <div
-      className="centered w-[100px] h-[100px] bg-white"
+      className="centered w-[50px] h-[50px] bg-white"
       onDrop={(e) => onDropFn(e, index)}
       onDragOver={handleOnDragOver}
     >

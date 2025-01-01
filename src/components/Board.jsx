@@ -1,5 +1,6 @@
 import { Brush } from "lucide-react";
 import React, { useState } from "react";
+import { putApiCall } from "../interceptors/ApiCallInterceptors";
 import { useActiveTileManagement } from "../stores/BoardManagementStore";
 import IconInfo from "./IconInfo";
 import Square from "./Square";
@@ -10,48 +11,54 @@ const Board = (props) => {
   const { activeTileIndex, setActiveTileIndex } = useActiveTileManagement();
   const [squareList, setSquareList] = useState(squareDataList);
   const [tileList, setTileList] = useState(tileDataList);
+  const [moveSaveStatus, setMoveSaveStatus] = useState();
 
   const handleOnDragStart = (e, id) => {
     setActiveTileIndex(id);
   };
 
-  const handleOnDrop = (e, index) => {
+  const handleOnDrop = async (e, index) => {
     const tile = tileList.find((tile) => tile.id === activeTileIndex);
 
     if (!tile) return;
 
-    const newSquareList = squareList.map((square) => {
-      const newTiles = square.tiles.filter((t) => t.id !== tile.id);
-      return { ...square, tiles: newTiles };
-    });
+    // const newSquareList = squareList.map((square) => {
+    //   const newTiles = square.tiles.filter((t) => {}); //t.id !== tile.id
+    //   return { ...square, tiles: newTiles };
+    // });
 
-    newSquareList[index].tiles.push(tile);
-    setSquareList(newSquareList);
+    squareList[index].tiles.push(tile);
+    setSquareList(squareList);
+
+    const response = await putApiCall(
+      "/playerboard/updatePlayerBoard",
+      {
+        playerBoardSquareId: squareList[index].playerBoardSquareId,
+        tileId: [squareList[index].tiles[0].id],
+      },
+      true
+    );
+
+    setMoveSaveStatus("Saving move...");
+    setTimeout(() => {
+      setMoveSaveStatus("");
+    }, 1000);
+
     setActiveTileIndex(null);
   };
 
   return (
     <div className="flex flex-col">
-      <IconInfo
-        config={{
-          icon: <Brush />,
-          text: name,
-        }}
-      />
-      <div className="flex flex-row mt-5">
-        {tileList.length > 0 && (
-          <div className="flex flex-col mr-7">
-            {tileList.map((tile, index) => (
-              <Tile
-                index={index}
-                key={tile.id}
-                config={tile}
-                onDragStartFn={handleOnDragStart}
-              />
-            ))}
-          </div>
-        )}
-
+      <div className="flex flex-row justify-between">
+        <IconInfo
+          config={{
+            icon: <Brush />,
+            text: name,
+          }}
+        />
+        <span>{moveSaveStatus}</span>
+      </div>
+      <div className="flex flex-col mt-5">
         <div
           className={`grid gap-0 h-fit`}
           style={{
@@ -59,15 +66,34 @@ const Board = (props) => {
             gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
           }}
         >
-          {squareList.map((square, index) => (
-            <Square
-              index={index}
-              key={square.squareId}
-              config={square}
-              onDropFn={handleOnDrop}
-            />
-          ))}
+          {squareList !== undefined &&
+            squareList.map((square, index) => (
+              <Square
+                index={index}
+                key={index}
+                config={square}
+                onDropFn={handleOnDrop}
+              />
+            ))}
         </div>
+
+        {tileList.length > 0 && (
+          <div
+            className="flex flex-row mt-5"
+            style={{
+              gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+            }}
+          >
+            {tileList.map((tile, index) => (
+              <Tile
+                index={index}
+                key={index}
+                config={tile}
+                onDragStartFn={handleOnDragStart}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

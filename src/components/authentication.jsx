@@ -37,8 +37,10 @@ const Authentication = () => {
     } else {
       try {
         const response = await postApiCall("/auth/login", formData);
-        localStorage.setItem("token", response.data?.token);
-        setLoggedInUserInfo(response.data?.player);
+        localStorage.setItem("token", response?.token);
+        setLoggedInUserInfo(response?.player);
+        console.log("Logged in user info", response?.player);
+
         handleNavigate();
       } catch (e) {
         alert("Login failed! Please try again");
