@@ -1,33 +1,32 @@
 .homepage-container {
-    display: flex;
-    height: 100vh;
-    width: 100%;
-    background-color: #1e1e1e; /* Fallback background color */
-    overflow: hidden;
-  }
-  
-  /* Left section for logo */
-  .homepage-logo-section {
-    width: auto; /* Takes up 70% of the screen width */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .homepage-logo {
-    max-width: max-content;
-    max-height: 100%;
-    object-fit: fill; /* Ensures the logo scales nicely */
-  }
-  
-  /* Right section for button */
-  .homepage-button-section {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: linear-gradient(135deg, #8000ff, #8a2be2);
-    background-image: url(../assests/TiloscopebckImg.png);
-    background-position: center;
-  }
-  
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: #1e1e1e; /* Fallback background color */
+  overflow: hidden;
+}
+
+/* Left section for logo */
+.homepage-logo-section {
+  width: auto; /* Takes up 70% of the screen width */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.homepage-logo {
+  max-width: max-content;
+  max-height: 100%;
+  object-fit: fill; /* Ensures the logo scales nicely */
+}
+
+/* Right section for button */
+.homepage-button-section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: linear-gradient(135deg, #8000ff, #8a2be2);
+  background-image: url(../assets/TiloscopebckImg.png);
+  background-position: center;
+}

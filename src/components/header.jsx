@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Info } from "lucide-react";
 import React from "react";
-import logo from "../assests/main-title-image.png";
+import logo from "../assets/main-title-image.png";
 
 const Header = () => {
   return (

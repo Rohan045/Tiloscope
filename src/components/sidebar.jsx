@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Brush, House, LogOut, ShieldHalf } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import userIcon from "../assests/user-icon.png";
+import userIcon from "../assets/user-icon.png";
 import { useUserManagementStore } from "../stores/UserManagementStore";
 
 function Sidebar() {

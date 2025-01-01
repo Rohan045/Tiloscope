@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getApiCall } from "../interceptors/ApiCallInterceptors";
 import UserGrid from "./UserGrid";
 
 function Feed() {
+  const [allBoardList, setAllBoardList] = useState();
   const [open, setOpen] = useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -38,19 +40,24 @@ function Feed() {
       upvotes: 2,
     },
   ];
+
+  useEffect(() => {
+    const fetchAllBoardsInfo = async () => {
+      const response = await getApiCall("/playerboard/getAllPlayerBoards");
+      setAllBoardList(response);
+    };
+    fetchAllBoardsInfo();
+  }, []);
+
   return (
     <>
       <div class="flex flex-row justify-center">
         <div className="overflow-y-scroll overflow-x-scroll px-4 scrollbar-hide h-screen w-max divide-y divide-y-white">
-          {userGrids.map((user) => {
-            return (
-              <UserGrid
-                name={user.name}
-                rank={user.rank}
-                upvotes={user.upvotes}
-              />
-            );
-          })}
+          {allBoardList !== undefined &&
+            allBoardList.length > 0 &&
+            allBoardList.map((boardInfo, index) => {
+              return <UserGrid key={index} boardInfo={{ boardInfo }} />;
+            })}
         </div>
       </div>
     </>

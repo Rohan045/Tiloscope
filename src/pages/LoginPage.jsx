@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
-import logo from "../assests/main-title-image.png";
+import logo from "../assets/main-title-image.png";
 import Authentication from "../components/Authentication";
 import "../styles/home.css";
 

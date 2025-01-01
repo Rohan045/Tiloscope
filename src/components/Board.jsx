@@ -34,7 +34,7 @@ const Board = (props) => {
       "/playerboard/updatePlayerBoard",
       {
         playerBoardSquareId: squareList[index].playerBoardSquareId,
-        tileId: [squareList[index].tiles[0].id],
+        tileIds: [squareList[index].tiles[0].id],
       },
       true
     );
