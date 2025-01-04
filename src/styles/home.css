@@ -19,14 +19,3 @@
   max-height: 100%;
   object-fit: fill; /* Ensures the logo scales nicely */
 }
-
-/* Right section for button */
-.homepage-button-section {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: linear-gradient(135deg, #8000ff, #8a2be2);
-  background-image: url(../assets/TiloscopebckImg.png);
-  background-position: center;
-}

@@ -1,6 +1,6 @@
 import React from "react";
 import Board from "./Board";
-import UserGridCard from "./userGridCard";
+import UserGridCard from "./UserGridCard";
 
 function UserGrid(props) {
   const { boardInfo } = props.boardInfo;
@@ -22,154 +22,16 @@ function UserGrid(props) {
   };
 
   return (
-    <>
-      <div class="inline items-end">
-        <div class="inline mb-7">
-          <UserGridCard
-            name={boardInfo?.player?.name}
-            email={boardInfo?.player?.email}
-            photoUrl={boardInfo?.player?.photoUrl}
-            rank={props.rank}
-            vote={boardInfo?.vote}
-          />
-        </div>
+    <div class="flex flex-col w-full">
+      <UserGridCard
+        name={boardInfo?.player?.name}
+        email={boardInfo?.player?.email}
+        photoUrl={boardInfo?.player?.photoUrl}
+        rank={props.rank}
+        vote={boardInfo?.vote}
+      />
 
-        {/* <Board
-          config={{
-            rows: 5,
-            cols: 5,
-            name: <span>Board 1</span>,
-            squareDataList: [
-              {
-                squareId: 1,
-                playerBoardSquareId: 1,
-                tiles: [],
-              },
-              {
-                squareId: 2,
-                playerBoardSquareId: 2,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-              {
-                squareId: 1,
-                playerBoardSquareId: 1,
-                tiles: [],
-              },
-              {
-                squareId: 2,
-                playerBoardSquareId: 2,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-              {
-                squareId: 1,
-                playerBoardSquareId: 1,
-                tiles: [],
-              },
-              {
-                squareId: 2,
-                playerBoardSquareId: 2,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-              {
-                squareId: 1,
-                playerBoardSquareId: 1,
-                tiles: [],
-              },
-              {
-                squareId: 2,
-                playerBoardSquareId: 2,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-              {
-                squareId: 1,
-                playerBoardSquareId: 1,
-                tiles: [],
-              },
-              {
-                squareId: 2,
-                playerBoardSquareId: 2,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-              {
-                squareId: 1,
-                playerBoardSquareId: 1,
-                tiles: [],
-              },
-              {
-                squareId: 2,
-                playerBoardSquareId: 2,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-              {
-                squareId: 1,
-                playerBoardSquareId: 1,
-                tiles: [],
-              },
-              {
-                squareId: 2,
-                playerBoardSquareId: 2,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-              {
-                squareId: 3,
-                playerBoardSquareId: 3,
-                tiles: [],
-              },
-            ],
-            tileDataList: [],
-          }}
-        /> */}
-
+      <div class="flex flex-row justify-center p-3">
         <Board
           config={{
             rows: boardInfo?.board?.rows,
@@ -180,7 +42,7 @@ function UserGrid(props) {
           }}
         />
       </div>
-    </>
+    </div>
   );
 }
 

@@ -1,34 +1,23 @@
-import { motion } from "framer-motion";
 import React from "react";
 import logo from "../assets/main-title-image.png";
-import Authentication from "../components/authentication";
+import Authentication from "../components/Authentication";
 import "../styles/home.css";
 
 const LoginPage = () => {
   return (
     <div className="flex flex-col md:flex-row">
       <div className="flex flex-col justify-center items-center h-[370px] w-full md:h-[100vh] md:w-1/2">
-        <motion.div
-          animate={{ scale: 0.75 }}
-          initial={{ scale: 0 }}
-          transition={{ type: "spring" }}
-          className="object-contain h-[370px] w-full md:h-full"
-        >
+        <div className="object-contain h-[370px] w-full md:h-full">
           <img
             src={logo}
             alt="TiloScope"
             className="object-contain w-full h-full"
           />
-        </motion.div>
+        </div>
       </div>
 
       <div className="flex flex-col  items-center md:justify-center md:items-center md:w-2/3">
-        <motion.div
-          animate={{ scale: 1 }}
-          initial={{ scale: 0 }}
-          transition={{ type: "spring" }}
-          className="card bg-zinc-700"
-        >
+        <div className="card bg-zinc-700 w-fit">
           <div className="flex flex-col  px-5 md:p-10">
             <span className="text-2xl md:text-5xl">
               Welcome to <strong>TiloScope!</strong> 🎨 🚀
@@ -53,7 +42,7 @@ const LoginPage = () => {
 
             <Authentication />
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

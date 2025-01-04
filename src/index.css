@@ -88,11 +88,11 @@ button:hover {
 
 @layer components {
   .glowing-card {
-    @apply rounded-2xl shadow-2xl shadow-indigo-700 bg-white p-5 w-fit h-fit;
+    @apply rounded-md shadow-2xl shadow-indigo-700 bg-white p-5 w-fit h-fit;
   }
 
   .card {
-    @apply rounded-2xl shadow-md p-5 w-fit;
+    @apply rounded-md border-solid border-zinc-700 border w-full;
   }
 
   .centered {

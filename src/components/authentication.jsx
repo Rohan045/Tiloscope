@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postApiCall } from "../interceptors/ApiCallInterceptors";
 import { useUserManagementStore } from "../stores/UserManagementStore";
-import Chipmark from "./chipmark";
+import Chipmark from "./Chipmark";
 
 const Authentication = () => {
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();

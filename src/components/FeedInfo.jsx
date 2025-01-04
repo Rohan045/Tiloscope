@@ -1,66 +1,67 @@
+import { PaintBucketIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { getApiCall } from "../interceptors/ApiCallInterceptors";
-import UserGrid from "./userGrid";
+import IconInfo from "./IconInfo";
+import UserGrid from "./UserGrid";
 
 function Feed() {
-  const [allBoardList, setAllBoardList] = useState();
+  const [allBoardList, setAllBoardList] = useState([]);
+  const [pageNo, setPageNo] = useState(-1);
   const [open, setOpen] = useState(false);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
-  var userGrids = [
-    {
-      name: "Rohan",
-      points: 52,
-      rank: 1,
-      upvotes: 10,
-    },
-    {
-      name: "Vishal",
-      points: 52,
-      rank: 2,
-      upvotes: 8,
-    },
-    {
-      name: "Soumya",
-      points: 52,
-      rank: 3,
-      upvotes: 6,
-    },
-    {
-      name: "Arpita",
-      points: 52,
-      rank: 4,
-      upvotes: 4,
-    },
-    {
-      name: "Rajib",
-      points: 52,
-      rank: 5,
-      upvotes: 2,
-    },
-  ];
 
   useEffect(() => {
-    const fetchAllBoardsInfo = async () => {
-      const response = await getApiCall("/playerboard");
-      setAllBoardList(response);
-    };
-    fetchAllBoardsInfo();
+    fetchAllBoardsInfo(pageNo);
   }, []);
 
+  const fetchAllBoardsInfo = async (pageNo) => {
+    const response = await getApiCall("/playerboard?page=" + (pageNo + 1));
+
+    if (response.length === 0) {
+      alert("No more data to load");
+      return;
+    }
+
+    const updatedList = allBoardList.concat(response);
+    setAllBoardList(updatedList);
+    setPageNo(pageNo + 1);
+  };
+
   return (
-    <>
-      <div class="flex flex-row justify-center">
-        <div className="overflow-y-scroll overflow-x-scroll px-4 scrollbar-hide h-screen w-max divide-y divide-y-white">
-          {allBoardList !== undefined &&
-            allBoardList.length > 0 &&
-            allBoardList.map((boardInfo, index) => {
-              return <UserGrid key={index} boardInfo={{ boardInfo }} />;
-            })}
+    <div class="flex flex-col p-3">
+      {allBoardList !== undefined && allBoardList.length > 0 && (
+        <div class="flex flex-col w-full">
+          {allBoardList.map((boardInfo, index) => {
+            return (
+              <div class="card flex flex-col mb-3">
+                <UserGrid key={index} boardInfo={{ boardInfo }} />
+                {index === allBoardList.length - 1 && (
+                  <div class="flex flex-row justify-center p-5">
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => fetchAllBoardsInfo(pageNo)}
+                    >
+                      <IconInfo
+                        config={{
+                          icon: <PaintBucketIcon />,
+                          text: (
+                            <span className="text-xs">
+                              Click to load more data...
+                            </span>
+                          ),
+                        }}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
-      </div>
-    </>
+      )}
+    </div>
   );
 }
 

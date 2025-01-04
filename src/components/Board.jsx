@@ -1,8 +1,6 @@
-import { Brush } from "lucide-react";
 import React, { useState } from "react";
 import { putApiCall } from "../interceptors/ApiCallInterceptors";
 import { useActiveTileManagement } from "../stores/BoardManagementStore";
-import IconInfo from "./IconInfo";
 import Square from "./Square";
 import Tile from "./Tile";
 
@@ -50,17 +48,9 @@ const Board = (props) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-between">
-        <div className="vertical-centered">
-          <IconInfo
-            config={{
-              icon: <Brush />,
-              text: name,
-            }}
-          />
-        </div>
         <span className="vertical-centered text-sm">{moveSaveStatus}</span>
       </div>
-      <div className="flex flex-col mt-5 px-7">
+      <div className="flex flex-col mt-5">
         <div
           className="grid gap-0 h-fit w-fit"
           style={{
