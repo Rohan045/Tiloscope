@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { getApiCall, postApiCall } from "../interceptors/ApiCallInterceptors";
+import {
+  getApiCall,
+  postApiCall,
+  putApiCall,
+} from "../interceptors/ApiCallInterceptors";
 import { useUserManagementStore } from "../stores/UserManagementStore";
+import IconInfo from "./IconInfo";
 
+import { Plus, Save } from "lucide-react";
 import Board from "./Board";
 
 const CreateBoard = () => {
   const { loggedInUserInfo } = useUserManagementStore();
   const [boardList, setBoardList] = useState();
   const [createdBoard, setCreatedBoard] = useState();
+  const [squareUpdatePayloadList, setSquareUpdatePayloadList] = useState([]);
   const [inputForm, setInputForm] = useState({
     boardId: "",
   });
@@ -25,25 +32,48 @@ const CreateBoard = () => {
     setInputForm(inputForm);
   };
 
+  const saveBoard = async () => {
+    if (squareUpdatePayloadList.length === 0) {
+      alert("No changes to save");
+      return;
+    }
+
+    const promises = squareUpdatePayloadList.map((payload) => {
+      return putApiCall(
+        `/playerboard/square`,
+        {
+          playerBoardSquareId: payload.playerBoardSquareId,
+          tileIds: payload.tileIds,
+        },
+        true
+      );
+    });
+
+    try {
+      await Promise.all(promises);
+      alert("Board changes have been saved successfully");
+    } catch (error) {
+      alert("An error occurred while saving the board.");
+    }
+  };
+
   const createBoard = async (e) => {
     e.preventDefault();
     setCreatedBoard(undefined);
-
     if (inputForm.boardId === "-1" || inputForm.boardId === "") {
       alert("Select board type");
       return;
     }
-    const playerEmail = loggedInUserInfo.email;
+
     const boardId = inputForm.boardId;
 
-    const response = await postApiCall(
-      `/playerboard/${boardId}`,
-      null,
-      true
-    );
-
-    setCreatedBoard(response);
-    alert("Board created successfully");
+    try {
+      const response = await postApiCall(`/playerboard/${boardId}`, null, true);
+      setCreatedBoard(response);
+      alert("Board created successfully");
+    } catch (error) {
+      alert("An error occurred while creating the board.");
+    }
   };
 
   const convertToThisList = (playerBoardSquares) => {
@@ -60,11 +90,29 @@ const CreateBoard = () => {
     return thisList;
   };
 
+  const updateSavePayloadList = (payload) => {
+    setSquareUpdatePayloadList([...squareUpdatePayloadList, payload]);
+  };
+
+  const actionOnSubmit = (e) => {
+    e.preventDefault();
+
+    const clickedButton =
+      e.nativeEvent.submitter ||
+      e.target.querySelector('[type="submit"]:focus');
+
+    if (clickedButton.name === "createBoard") {
+      createBoard(e);
+    } else if (clickedButton.name === "saveBoard") {
+      saveBoard();
+    }
+  };
+
   return (
     <div className="flex flex-col">
       <form
         className="flex flex-row border-solid border-zinc-700 border-b justify-between p-5 text-sm"
-        onSubmit={(e) => createBoard(e)}
+        onSubmit={(e) => actionOnSubmit(e)}
       >
         <div className="flex flex-row">
           <select
@@ -81,7 +129,18 @@ const CreateBoard = () => {
               ))}
           </select>
         </div>
-        <button type="submit">Create Board</button>
+
+        <div className="flex flex-row">
+          <button className="mr-3" name="createBoard" type="submit">
+            <IconInfo config={{ icon: <Plus />, text: "Create Board" }} />
+          </button>
+
+          {createdBoard !== undefined && (
+            <button name="saveBoard" type="submit">
+              <IconInfo config={{ icon: <Save />, text: "Save Board" }} />
+            </button>
+          )}
+        </div>
       </form>
 
       <div className="centered h-[70vh] overflow-auto">
@@ -95,6 +154,7 @@ const CreateBoard = () => {
                 createdBoard.playerBoardSquares
               ),
               tileDataList: loggedInUserInfo?.tiles,
+              updateSavePayloadListFn: updateSavePayloadList,
             }}
           />
         )}

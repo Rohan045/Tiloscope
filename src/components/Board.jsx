@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { putApiCall } from "../interceptors/ApiCallInterceptors";
 import { useActiveTileManagement } from "../stores/BoardManagementStore";
 import Square from "./Square";
 import Tile from "./Tile";
 
 const Board = (props) => {
-  const { rows, cols, name, squareDataList, tileDataList } = props.config;
+  const {
+    rows,
+    cols,
+    name,
+    squareDataList,
+    tileDataList,
+    updateSavePayloadListFn,
+  } = props.config;
   const { activeTileIndex, setActiveTileIndex } = useActiveTileManagement();
   const [squareList, setSquareList] = useState(squareDataList);
   const [tileList, setTileList] = useState(tileDataList);
@@ -20,27 +26,13 @@ const Board = (props) => {
 
     if (!tile) return;
 
-    // const newSquareList = squareList.map((square) => {
-    //   const newTiles = square.tiles.filter((t) => {}); //t.id !== tile.id
-    //   return { ...square, tiles: newTiles };
-    // });
-
     squareList[index].tiles.push(tile);
     setSquareList(squareList);
 
-    const response = await putApiCall(
-      "/playerboard/square",
-      {
-        playerBoardSquareId: squareList[index].playerBoardSquareId,
-        tileIds: [squareList[index].tiles[0].id],
-      },
-      true
-    );
-
-    setMoveSaveStatus("Saving move...");
-    setTimeout(() => {
-      setMoveSaveStatus("");
-    }, 1000);
+    updateSavePayloadListFn({
+      playerBoardSquareId: squareList[index].playerBoardSquareId,
+      tileIds: [squareList[index].tiles[0].id],
+    });
 
     setActiveTileIndex(null);
   };
