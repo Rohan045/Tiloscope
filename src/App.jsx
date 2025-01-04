@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import CreateBoard from "./components/CreateBoard.jsx";
 import { default as FeedInfo } from "./components/FeedInfo.jsx";
-import HomePage from "./pages/HomePage.jsx";
+import HomePage from "./pages/homePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 
 function App() {

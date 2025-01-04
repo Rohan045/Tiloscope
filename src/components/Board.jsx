@@ -31,7 +31,7 @@ const Board = (props) => {
     setSquareList(squareList);
 
     const response = await putApiCall(
-      "/playerboard/updatePlayerBoard",
+      "/playerboard/square",
       {
         playerBoardSquareId: squareList[index].playerBoardSquareId,
         tileIds: [squareList[index].tiles[0].id],

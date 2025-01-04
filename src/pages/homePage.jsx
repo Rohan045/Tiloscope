@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import Header from "../components/Header";
-import Leaderboard from "../components/Leaderboard";
-import Sidebar from "../components/Sidebar";
+import Header from "../components/header";
+import Leaderboard from "../components/leaderboard";
+import Sidebar from "../components/sidebar";
 
 function HomePage() {
   const [open, setOpen] = useState(false);

@@ -1,6 +1,6 @@
 import React from "react";
 import Board from "./Board";
-import UserGridCard from "./UserGridCard";
+import UserGridCard from "./userGridCard";
 
 function UserGrid(props) {
   const { boardInfo } = props.boardInfo;

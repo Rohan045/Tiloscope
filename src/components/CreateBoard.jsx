@@ -14,7 +14,7 @@ const CreateBoard = () => {
 
   useEffect(() => {
     const fetchBoardList = async () => {
-      const response = await getApiCall("/board/getAllBoards");
+      const response = await getApiCall("/board");
       setBoardList(response);
     };
     fetchBoardList();
@@ -37,7 +37,7 @@ const CreateBoard = () => {
     const boardId = inputForm.boardId;
 
     const response = await postApiCall(
-      `/playerboard/${playerEmail}/${boardId}`,
+      `/playerboard/${boardId}`,
       null,
       true
     );

@@ -1,5 +1,5 @@
 import React from "react";
-import LeaderboardUser from "./LeaderboardUser";
+import LeaderboardUser from "./leaderboardUser";
 
 function Leaderboard() {
   var leaderBoard = [

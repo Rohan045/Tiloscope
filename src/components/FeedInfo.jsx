@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getApiCall } from "../interceptors/ApiCallInterceptors";
-import UserGrid from "./UserGrid";
+import UserGrid from "./userGrid";
 
 function Feed() {
   const [allBoardList, setAllBoardList] = useState();
@@ -43,7 +43,7 @@ function Feed() {
 
   useEffect(() => {
     const fetchAllBoardsInfo = async () => {
-      const response = await getApiCall("/playerboard/getAllPlayerBoards");
+      const response = await getApiCall("/playerboard");
       setAllBoardList(response);
     };
     fetchAllBoardsInfo();

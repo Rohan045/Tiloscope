@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import logo from "../assets/main-title-image.png";
-import Authentication from "../components/Authentication";
+import Authentication from "../components/authentication";
 import "../styles/home.css";
 
 const LoginPage = () => {
