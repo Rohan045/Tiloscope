@@ -108,6 +108,6 @@ button:hover {
   }
 
   .tile {
-    @apply w-[60px] h-[60px] rounded-md shadow-black cursor-pointer md:w-[70px] md:h-[70px];
+    @apply w-[60px] h-[60px] rounded-md cursor-pointer md:w-[70px] md:h-[70px];
   }
 }
