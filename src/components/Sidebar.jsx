@@ -32,7 +32,7 @@ const Sidebar = () => {
         <img
           src={loggedInUserInfo?.photoUrl || userIcon}
           alt="user-icon"
-          className="rounded-full p-5 md:w-[120px] md:h-[120px] lg:w-[150px] lg:h-[150px]"
+          className="rounded-full object-cover p-5 md:w-[120px] md:h-[120px] lg:w-[150px] lg:h-[150px]"
         />
 
         <span className="text-2xl font-bold">{loggedInUserInfo?.name}</span>

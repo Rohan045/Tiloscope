@@ -1,4 +1,4 @@
-import { ArrowBigUp, Shield, Vote } from "lucide-react";
+import { ArrowBigUp, Shield, Vote, LoaderCircle } from "lucide-react";
 import React, { useState } from "react";
 import userIcon from "../assets/user-icon.png";
 import IconInfo from "./IconInfo";
@@ -8,11 +8,14 @@ const UserGridCard = (props) => {
   const { name, email, photoUrl, rank, vote, boardId } = props;
   const [upvotes, setUpvotes] = useState(vote);
   const [upvoted, setUpvoted] = useState(false);
+  const [voteLoading, setVoteLoading] = useState(false);
   const upvoteHandle = async () => {
     try{
+      setVoteLoading(true);
       const response = await putApiCall("/playerboard/upvote/" + boardId,null, true);
       setUpvotes(response.vote);
       setUpvoted(true);
+      setVoteLoading(false);
     }catch(error){
       alert("Error while trying to upvote!!");
     }
@@ -36,7 +39,7 @@ const UserGridCard = (props) => {
         <div className="flex flex-row justify-between text-xs w-full">
           <div className="flex flex-row">
             <IconInfo config={{ icon: <Shield />, text: "Rank #100" }} />
-            <IconInfo config={{ icon: <Vote />, text: "Upvotes " + upvotes }} />
+            {voteLoading ? <IconInfo config={{ icon: <LoaderCircle class="animate-spin"/>, text: "Loading..." }} /> : <IconInfo config={{ icon: <Vote />, text: "Upvotes " + upvotes }} />}
           </div>
 
           <IconInfo
@@ -49,7 +52,7 @@ const UserGridCard = (props) => {
               text: (
                 <div
                   className="flex cursor-pointer"
-                  onClick={upvoteHandle}
+                  onClick={!upvoted ? upvoteHandle : null}
                   disabled={upvoted}
                 >
                   <span>Upvote</span>
