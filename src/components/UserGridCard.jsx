@@ -2,14 +2,20 @@ import { ArrowBigUp, Shield, Vote } from "lucide-react";
 import React, { useState } from "react";
 import userIcon from "../assets/user-icon.png";
 import IconInfo from "./IconInfo";
+import { putApiCall } from "../interceptors/ApiCallInterceptors";
 
 const UserGridCard = (props) => {
-  const { name, email, photoUrl, rank, vote } = props;
+  const { name, email, photoUrl, rank, vote, boardId } = props;
   const [upvotes, setUpvotes] = useState(vote);
   const [upvoted, setUpvoted] = useState(false);
-  const upvoteHandle = () => {
-    setUpvoted(true);
-    setUpvotes(upvotes + 1);
+  const upvoteHandle = async () => {
+    try{
+      const response = await putApiCall("/playerboard/upvote/" + boardId,null, true);
+      setUpvotes(response.vote);
+      setUpvoted(true);
+    }catch(error){
+      alert("Error while trying to upvote!!");
+    }
   };
   return (
     <div className="border-solid border-zinc-700 border-b px-3 pt-3">
@@ -30,7 +36,7 @@ const UserGridCard = (props) => {
         <div class="flex flex-row justify-between text-xs w-full">
           <div class="flex flex-row">
             <IconInfo config={{ icon: <Shield />, text: "Rank #100" }} />
-            <IconInfo config={{ icon: <Vote />, text: "Upvotes 2" }} />
+            <IconInfo config={{ icon: <Vote />, text: "Upvotes " + upvotes }} />
           </div>
 
           <IconInfo

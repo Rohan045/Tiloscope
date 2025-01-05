@@ -25,6 +25,7 @@ const UserGrid = (props) => {
         photoUrl={boardInfo?.player?.photoUrl}
         rank={props.rank}
         vote={boardInfo?.vote}
+        boardId={boardInfo?.id}
       />
 
       <div class="flex flex-row justify-center p-3">
