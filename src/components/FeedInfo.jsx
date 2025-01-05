@@ -1,21 +1,39 @@
 import { PaintBucketIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getApiCall } from "../interceptors/ApiCallInterceptors";
 import {
   useDialogManagementStore,
   useLoaderManagementStore,
 } from "../stores/DialogManagementStore";
+import { useUserManagementStore } from "../stores/UserManagementStore";
 import IconInfo from "./IconInfo";
 import UserGrid from "./UserGrid";
 
 function Feed() {
+  const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
   const { setDialogInfo } = useDialogManagementStore();
   const { setLoaderInfo } = useLoaderManagementStore();
   const [allBoardList, setAllBoardList] = useState([]);
   const [pageNo, setPageNo] = useState(-1);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    fetchAllBoardsInfo(pageNo);
+    const user = localStorage.getItem("user");
+
+    if (loggedInUserInfo === undefined) {
+      if (user) {
+        setLoggedInUserInfo(user);
+        fetchAllBoardsInfo(pageNo);
+      } else {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        navigate("/");
+      }
+    } else {
+      fetchAllBoardsInfo(pageNo);
+    }
   }, []);
 
   const fetchAllBoardsInfo = async (pageNo) => {
@@ -46,15 +64,15 @@ function Feed() {
   };
 
   return (
-    <div class="flex flex-col p-3">
+    <div className="flex flex-col p-3">
       {allBoardList !== undefined && allBoardList.length > 0 && (
-        <div class="flex flex-col w-full">
+        <div className="flex flex-col w-full">
           {allBoardList.map((boardInfo, index) => {
             return (
-              <div class="card flex flex-col mb-3">
+              <div key={index} className="card flex flex-col mb-3">
                 <UserGrid key={index} boardInfo={{ boardInfo }} />
                 {index === allBoardList.length - 1 && (
-                  <div class="flex flex-row justify-center p-5">
+                  <div className="flex flex-row justify-center p-5">
                     <div
                       className="cursor-pointer"
                       onClick={() => fetchAllBoardsInfo(pageNo)}

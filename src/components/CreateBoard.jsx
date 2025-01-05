@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  getApiCall,
-  postApiCall,
-  putApiCall,
-} from "../interceptors/ApiCallInterceptors";
+import { postApiCall, putApiCall } from "../interceptors/ApiCallInterceptors";
 import { useUserManagementStore } from "../stores/UserManagementStore";
 import IconInfo from "./IconInfo";
 
 import { Plus, Save } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import {
   useDialogManagementStore,
   useLoaderManagementStore,
@@ -15,7 +12,7 @@ import {
 import Board from "./Board";
 
 const CreateBoard = () => {
-  const { loggedInUserInfo } = useUserManagementStore();
+  const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
   const { setDialogInfo } = useDialogManagementStore();
   const { setLoaderInfo } = useLoaderManagementStore();
   const [createdBoard, setCreatedBoard] = useState();
@@ -24,6 +21,23 @@ const CreateBoard = () => {
     size: "",
   });
   const boardSize = [3, 4, 5, 6, 7];
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = sessionStorage.getItem("user");
+
+    if (loggedInUserInfo === undefined) {
+      if (user) {
+        setLoggedInUserInfo(user);
+      } else {
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
+        navigate("/");
+      }
+    }
+  }, []);
+
   const handleBoardTypeChange = (size) => {
     inputForm.size = size;
     setInputForm(inputForm);
@@ -81,17 +95,17 @@ const CreateBoard = () => {
 
     const size = inputForm.size;
     let boardId;
-    try{
+    try {
       const payload = {
         rows: size,
-        cols: size
+        cols: size,
       };
       setLoaderInfo({
         text: "Creating Board template",
       });
       const response = await postApiCall(`/board`, payload, true);
       boardId = response.id;
-    } catch(error){
+    } catch (error) {
       setDialogInfo({
         type: "error",
         text: "An error occurred while creating the board",
@@ -163,7 +177,7 @@ const CreateBoard = () => {
             required
           >
             <option value="-1">Select board type</option>
-          
+
             {boardSize.map((element) => (
               <option key={element} value={element}>
                 {element}x{element}

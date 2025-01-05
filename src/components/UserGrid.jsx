@@ -18,7 +18,7 @@ const UserGrid = (props) => {
   };
 
   return (
-    <div class="flex flex-col w-full">
+    <div className="flex flex-col w-full">
       <UserGridCard
         name={boardInfo?.player?.name}
         email={boardInfo?.player?.email}
@@ -28,7 +28,7 @@ const UserGrid = (props) => {
         boardId={boardInfo?.id}
       />
 
-      <div class="flex flex-row justify-center p-3">
+      <div className="flex flex-row justify-center p-3">
         <Board
           config={{
             rows: boardInfo?.board?.rows,

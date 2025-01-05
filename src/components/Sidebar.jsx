@@ -1,5 +1,5 @@
 import { Brush, House, LogOut, ShieldHalf } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import userIcon from "../assets/user-icon.png";
 import { useUserManagementStore } from "../stores/UserManagementStore";
@@ -11,9 +11,14 @@ const Sidebar = () => {
 
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
 
+  useEffect(() => {
+    console.log(typeof loggedInUserInfo);
+  }, [loggedInUserInfo]);
+
   const handleButton = (button) => () => {
     if (button === "logOut") {
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
       setLoggedInUserInfo(undefined);
       navigate("/");
     } else if (button === "boards") {

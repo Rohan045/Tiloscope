@@ -19,8 +19,8 @@ const UserGridCard = (props) => {
   };
   return (
     <div className="border-solid border-zinc-700 border-b px-3 pt-3">
-      <div class="flex pb-2 ">
-        <div class="rounded-full h-[50px] w-[50px] border-solid border-zinc-700 border bg-slate-800">
+      <div className="flex pb-2 ">
+        <div className="rounded-full h-[50px] w-[50px] border-solid border-zinc-700 border bg-slate-800">
           <img
             src={photoUrl || userIcon}
             alt="dp"
@@ -28,13 +28,13 @@ const UserGridCard = (props) => {
           />
         </div>
         <div className="flex flex-col justify-center ml-3">
-          <span class="font-bold">{name}</span>
-          <span class="text-xs">{email}</span>
+          <span className="font-bold">{name}</span>
+          <span className="text-xs">{email}</span>
         </div>
       </div>
-      <div class="flex justify-items-end my-3">
-        <div class="flex flex-row justify-between text-xs w-full">
-          <div class="flex flex-row">
+      <div className="flex justify-items-end my-3">
+        <div className="flex flex-row justify-between text-xs w-full">
+          <div className="flex flex-row">
             <IconInfo config={{ icon: <Shield />, text: "Rank #100" }} />
             <IconInfo config={{ icon: <Vote />, text: "Upvotes " + upvotes }} />
           </div>
@@ -42,13 +42,13 @@ const UserGridCard = (props) => {
           <IconInfo
             config={{
               icon: upvoted ? (
-                <ArrowBigUp class="fill-zinc-300" />
+                <ArrowBigUp className="fill-zinc-300" />
               ) : (
-                <ArrowBigUp class="hover:animate-bounce hover:fill-zinc-300" />
+                <ArrowBigUp className="hover:animate-bounce hover:fill-zinc-300" />
               ),
               text: (
                 <div
-                  class="flex cursor-pointer"
+                  className="flex cursor-pointer"
                   onClick={upvoteHandle}
                   disabled={upvoted}
                 >

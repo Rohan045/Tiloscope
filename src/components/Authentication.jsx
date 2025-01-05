@@ -61,6 +61,7 @@ const Authentication = () => {
         });
         const response = await postApiCall("/auth/login", formData);
         localStorage.setItem("token", response?.token);
+        localStorage.setItem("user", JSON.stringify(response?.player));
         setLoggedInUserInfo(response?.player);
         handleNavigate();
       } catch (e) {
