@@ -11,15 +11,6 @@ function Sidebar() {
 
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
 
-  const handleButton = (button) => () => {
-    if (button === "logOut") {
-      localStorage.removeItem("token");
-      setLoggedInUserInfo(undefined);
-      navigate("/");
-    } else if (button === "boards") {
-      navigate("/game");
-    }
-  };
   return (
     <div>
       <div
@@ -55,11 +46,11 @@ function Sidebar() {
           Create Board
         </span>
       </div>
-      <div class={style} onClick={handleButton("boards")}>
+      <div class={style} onClick={() => navigate("boards")}>
         <Brush />
         <span className="font-meduim pl-5 text-start w-[150px]">My Boards</span>
       </div>
-      <div class={style} onClick={handleButton("logOut")}>
+      <div class={style} onClick={() => navigate("/")}>
         <LogOut />
         <span className="font-meduim pl-5 text-start w-[150px]">Log Out</span>
       </div>

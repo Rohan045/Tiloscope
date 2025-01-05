@@ -5,7 +5,7 @@ import logo from "../assets/main-title-image.png";
 
 const Header = () => {
   return (
-    <div className="sticky bg-zinc-800 top-0 z-10 flex flex-row justify-between p-1 px-5 border-solid border-zinc-700 border-b shadow-sm">
+    <div className="sticky bg-transparent top-0 z-10 flex flex-row justify-between p-1 px-5 border-solid border-zinc-700 border-b shadow-sm">
       <motion.div
         animate={{ scale: 1 }}
         initial={{ scale: 0 }}

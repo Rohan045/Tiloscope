@@ -19,14 +19,14 @@ function HomePage() {
   return (
     <>
       <Header />
-      <div className="flex flex-row mx-[10%] h-[90%]">
-        <div className="w-1/5 border-solid border-zinc-700 border-r shadow-sm">
+      <div className="flex flex-row h-[90%]">
+        <div className="w-1/4 border-solid border-zinc-700 border-r shadow-sm">
           <Sidebar />
         </div>
-        <div className="overflow-auto w-3/5">
+        <div className="overflow-auto w-2/4 scrollbar-hide">
           <Outlet />
         </div>
-        <div className="w-1/5 border-solid border-zinc-700 border-l shadow-sm">
+        <div className="w-1/4 border-solid border-zinc-700 border-l shadow-sm">
           <Leaderboard />
         </div>
       </div>

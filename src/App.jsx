@@ -8,7 +8,7 @@ import { default as FeedInfo } from "./components/FeedInfo.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 
-function App() {
+function App() {  
   const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
@@ -16,7 +16,7 @@ function App() {
   const Backend = isMobile ? TouchBackend : HTML5Backend;
 
   return (
-    <div className="bg-zinc-800 text-xs text-gray-300 h-[100vh] md:text-md lg:text-lg">
+    <div className="bg-black text-xs text-gray-300 h-[100vh] md:text-md lg:text-lg overflow-hidden">
       <DndProvider backend={Backend}>
         <BrowserRouter>
           <Routes>

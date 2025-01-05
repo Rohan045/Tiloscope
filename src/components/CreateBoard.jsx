@@ -12,23 +12,14 @@ import Board from "./Board";
 
 const CreateBoard = () => {
   const { loggedInUserInfo } = useUserManagementStore();
-  const [boardList, setBoardList] = useState();
   const [createdBoard, setCreatedBoard] = useState();
   const [squareUpdatePayloadList, setSquareUpdatePayloadList] = useState([]);
   const [inputForm, setInputForm] = useState({
-    boardId: "",
+    size: "",
   });
-
-  useEffect(() => {
-    const fetchBoardList = async () => {
-      const response = await getApiCall("/board");
-      setBoardList(response);
-    };
-    fetchBoardList();
-  }, []);
-
-  const handleBoardTypeChange = (boardId) => {
-    inputForm.boardId = boardId;
+  const boardSize = [3, 4, 5, 6, 7];
+  const handleBoardTypeChange = (size) => {
+    inputForm.size = size;
     setInputForm(inputForm);
   };
 
@@ -65,12 +56,24 @@ const CreateBoard = () => {
       return;
     }
 
-    const boardId = inputForm.boardId;
+    const size = inputForm.size;
+    let boardId;
+    try{
+      const payload = {
+        rows: size,
+        cols: size
+      };
+      const response = await postApiCall(`/board`, payload, true);
+      boardId = response.id;
+      alert("Template Board created successfully");
+    } catch(error){
+      alert("Error while creating a template board");
+    }
 
     try {
       const response = await postApiCall(`/playerboard/${boardId}`, null, true);
       setCreatedBoard(response);
-      alert("Board created successfully");
+      alert("Board assigned successfully");
     } catch (error) {
       alert("An error occurred while creating the board.");
     }
@@ -121,12 +124,17 @@ const CreateBoard = () => {
             required
           >
             <option value="-1">Select board type</option>
-            {boardList !== undefined &&
+            {/* {boardList !== undefined &&
               boardList.map((board) => (
                 <option key={board.id} value={board.id}>
                   {board.rows}x{board.cols}
                 </option>
-              ))}
+              ))} */}
+            {boardSize.map((element) => (
+              <option key={element} value={element}>
+                {element}x{element}
+              </option>
+            ))}
           </select>
         </div>
 
