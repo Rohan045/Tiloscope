@@ -3,6 +3,7 @@ import "./App.css";
 import CreateBoard from "./components/CreateBoard.jsx";
 import DialogLoaderContainer from "./components/DialogLoaderContainer.jsx";
 import { default as FeedInfo } from "./components/FeedInfo.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 
@@ -17,6 +18,7 @@ const App = () => {
             <Route path="feed" element={<FeedInfo />} />
             <Route path="createBoard" element={<CreateBoard />} />
           </Route>
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </div>

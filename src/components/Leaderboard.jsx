@@ -1,6 +1,5 @@
 import { ShieldHalf } from "lucide-react";
 import React from "react";
-import IconInfo from "./IconInfo";
 import LeaderboardUser from "./LeaderboardUser";
 
 const Leaderboard = () => {
@@ -33,18 +32,17 @@ const Leaderboard = () => {
   ];
   return (
     <>
-      <div class="flex flex-col">
-        <div class="vertical-centered font-bold border-solid border-zinc-700 border-b p-3 h-[70px]">
-          <IconInfo
-            config={{
-              icon: <ShieldHalf />,
-              text: "Leaderboard",
-            }}
-          />
+      <div className="flex flex-col">
+        <div className="vertical-centered font-bold border-solid border-zinc-700 border-b p-3 h-[70px]">
+          <div className="flex flex-row w-[150px]">
+            <ShieldHalf />
+            <span className="font-meduim pl-5">Leaderboard</span>
+          </div>
         </div>
-        {leaderBoard.map((user) => {
+        {leaderBoard.map((user, index) => {
           return (
             <LeaderboardUser
+              key={index}
               name={user.name}
               points={user.points}
               rank={user.rank}
