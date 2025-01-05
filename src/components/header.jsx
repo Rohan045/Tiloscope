@@ -1,24 +1,20 @@
 import { Github } from "lucide-react";
 import React from "react";
+import { motion } from "framer-motion";
 import logo from "../assets/main-title-image.png";
 import IconInfo from "./IconInfo";
 
 const Header = () => {
   return (
-    <div className="sticky bg-transparent top-0 z-10 flex flex-row justify-between p-1 px-5 border-solid border-zinc-700 border-b shadow-sm">
-      <motion.div
+    <div className="sticky bg-transparent top-0 z-10 flex flex-row justify-between p-1 px-5 border-solid border-zinc-700 border-b shadow-sm">      
+      <div
         animate={{ scale: 1 }}
         initial={{ scale: 0 }}
         transition={{ type: "spring" }}
-        className="centered"
-      >
-        <img
-          src={logo}
           alt="logo"
-          className="w-[100px] h-[100px] md:w-[70px] md:h-[70px]"
-        />
-      </motion.div>
-
+          className="w-[100px] h-[100px] md:w-[70px] md:h-[70px]">
+            <img src={logo}/>
+      </div>
       <div
         className="flex flex-row cursor-pointer"
         onClick={() => {

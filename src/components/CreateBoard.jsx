@@ -18,32 +18,11 @@ const CreateBoard = () => {
   const { loggedInUserInfo } = useUserManagementStore();
   const { setDialogInfo } = useDialogManagementStore();
   const { setLoaderInfo } = useLoaderManagementStore();
-  const [boardList, setBoardList] = useState();
   const [createdBoard, setCreatedBoard] = useState();
   const [squareUpdatePayloadList, setSquareUpdatePayloadList] = useState([]);
   const [inputForm, setInputForm] = useState({
     size: "",
   });
-
-  useEffect(() => {
-    const fetchBoardList = async () => {
-      try {
-        setLoaderInfo({
-          text: "Fetching Board Types...",
-        });
-        const response = await getApiCall("/board");
-        setBoardList(response);
-      } catch (e) {
-        setDialogInfo({
-          type: "error",
-          text: "An error occurred while saving the board",
-        });
-      } finally {
-        setLoaderInfo(undefined);
-      }
-    };
-    fetchBoardList();
-  }, []);
   const boardSize = [3, 4, 5, 6, 7];
   const handleBoardTypeChange = (size) => {
     inputForm.size = size;
@@ -107,27 +86,32 @@ const CreateBoard = () => {
         rows: size,
         cols: size
       };
+      setLoaderInfo({
+        text: "Creating Board template",
+      });
       const response = await postApiCall(`/board`, payload, true);
       boardId = response.id;
-      alert("Template Board created successfully");
     } catch(error){
-      alert("Error while creating a template board");
+      setDialogInfo({
+        type: "error",
+        text: "An error occurred while creating the board",
+      });
     }
 
     try {
       setLoaderInfo({
-        text: "Creating Board...",
+        text: "Assigning Board...",
       });
       const response = await postApiCall(`/playerboard/${boardId}`, null, true);
       setCreatedBoard(response);
       setDialogInfo({
         type: "info",
-        text: "Board created successfully",
+        text: "Board assigned successfully",
       });
     } catch (error) {
       setDialogInfo({
         type: "error",
-        text: "An error occurred while creating the board",
+        text: "An error occurred while assigning the board",
       });
     } finally {
       setLoaderInfo(undefined);
