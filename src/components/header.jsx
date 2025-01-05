@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
-import { Info } from "lucide-react";
+import { Github } from "lucide-react";
 import React from "react";
 import logo from "../assets/main-title-image.png";
+import IconInfo from "./IconInfo";
 
 const Header = () => {
   return (
@@ -19,13 +19,18 @@ const Header = () => {
         />
       </motion.div>
 
-      <div className="flex flex-row">
-        <div className="centered mr-2">
-          <Info />
-        </div>
-        <div className="centered">
-          <span>About</span>
-        </div>
+      <div
+        className="flex flex-row cursor-pointer"
+        onClick={() => {
+          window.open(process.env.REACT_APP_FRONTEND_URL, "_blank");
+          window.open(process.env.REACT_APP_BACKEND_URL, "_blank");
+        }}
+      >
+        <IconInfo
+          config={{
+            icon: <Github />,
+          }}
+        />
       </div>
     </div>
   );

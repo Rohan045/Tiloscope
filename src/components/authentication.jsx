@@ -2,11 +2,17 @@ import { Gamepad2, UserPlus } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postApiCall } from "../interceptors/ApiCallInterceptors";
+import {
+  useDialogManagementStore,
+  useLoaderManagementStore,
+} from "../stores/DialogManagementStore";
 import { useUserManagementStore } from "../stores/UserManagementStore";
 import Chipmark from "./Chipmark";
 
 const Authentication = () => {
-  const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
+  const { setLoggedInUserInfo } = useUserManagementStore();
+  const { setDialogInfo } = useDialogManagementStore();
+  const { setLoaderInfo } = useLoaderManagementStore();
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
@@ -22,32 +28,50 @@ const Authentication = () => {
     e.preventDefault();
 
     if (isSignup && formData.password !== formData.confPassword) {
-      alert("Passwords do not match");
+      setDialogInfo({
+        type: "info",
+        text: "Passwords do not match",
+      });
       return;
     }
 
     if (isSignup) {
       try {
-        const response = await postApiCall("/auth/player", formData);
-        alert("Registration successful ! Please login to proceed");
+        setLoaderInfo({
+          text: "Signing In...",
+        });
+        await postApiCall("/auth/player", formData);
+        setDialogInfo({
+          type: "success",
+          text: "Registration successful ! Please login to proceed",
+        });
         setIsSignup(false);
       } catch (e) {
-        alert("Registration failed! Please try again");
+        setDialogInfo({
+          type: "info",
+          text: "Registration failed! Please try again",
+        });
+      } finally {
+        setLoaderInfo(undefined);
       }
     } else {
       try {
+        setLoaderInfo({
+          text: "Logging In...",
+        });
         const response = await postApiCall("/auth/login", formData);
         localStorage.setItem("token", response?.token);
         setLoggedInUserInfo(response?.player);
         handleNavigate();
       } catch (e) {
-        alert("Login failed! Please try again");
+        setDialogInfo({
+          type: "info",
+          text: "Login failed! Please try again",
+        });
+      } finally {
+        setLoaderInfo(undefined);
       }
     }
-  };
-
-  const toggleForm = () => {
-    setIsSignup(!isSignup);
   };
 
   return (
