@@ -8,10 +8,16 @@ import { useUserManagementStore } from "../stores/UserManagementStore";
 import IconInfo from "./IconInfo";
 
 import { Plus, Save } from "lucide-react";
+import {
+  useDialogManagementStore,
+  useLoaderManagementStore,
+} from "../stores/DialogManagementStore";
 import Board from "./Board";
 
 const CreateBoard = () => {
   const { loggedInUserInfo } = useUserManagementStore();
+  const { setDialogInfo } = useDialogManagementStore();
+  const { setLoaderInfo } = useLoaderManagementStore();
   const [boardList, setBoardList] = useState();
   const [createdBoard, setCreatedBoard] = useState();
   const [squareUpdatePayloadList, setSquareUpdatePayloadList] = useState([]);
@@ -21,8 +27,20 @@ const CreateBoard = () => {
 
   useEffect(() => {
     const fetchBoardList = async () => {
-      const response = await getApiCall("/board");
-      setBoardList(response);
+      try {
+        setLoaderInfo({
+          text: "Fetching Board Types...",
+        });
+        const response = await getApiCall("/board");
+        setBoardList(response);
+      } catch (e) {
+        setDialogInfo({
+          type: "error",
+          text: "An error occurred while saving the board",
+        });
+      } finally {
+        setLoaderInfo(undefined);
+      }
     };
     fetchBoardList();
   }, []);
@@ -33,8 +51,14 @@ const CreateBoard = () => {
   };
 
   const saveBoard = async () => {
+    setLoaderInfo({
+      text: "Saving Board Changes...",
+    });
     if (squareUpdatePayloadList.length === 0) {
-      alert("No changes to save");
+      setDialogInfo({
+        type: "info",
+        text: "No changes to save",
+      });
       return;
     }
 
@@ -51,9 +75,17 @@ const CreateBoard = () => {
 
     try {
       await Promise.all(promises);
-      alert("Board changes have been saved successfully");
+      setDialogInfo({
+        type: "info",
+        text: "Board changes have been saved successfully",
+      });
     } catch (error) {
-      alert("An error occurred while saving the board.");
+      setDialogInfo({
+        type: "error",
+        text: "An error occurred while saving the board",
+      });
+    } finally {
+      setLoaderInfo(undefined);
     }
   };
 
@@ -61,18 +93,32 @@ const CreateBoard = () => {
     e.preventDefault();
     setCreatedBoard(undefined);
     if (inputForm.boardId === "-1" || inputForm.boardId === "") {
-      alert("Select board type");
+      setDialogInfo({
+        type: "info",
+        text: "Select board type",
+      });
       return;
     }
 
     const boardId = inputForm.boardId;
 
     try {
+      setLoaderInfo({
+        text: "Creating Board...",
+      });
       const response = await postApiCall(`/playerboard/${boardId}`, null, true);
       setCreatedBoard(response);
-      alert("Board created successfully");
+      setDialogInfo({
+        type: "info",
+        text: "Board created successfully",
+      });
     } catch (error) {
-      alert("An error occurred while creating the board.");
+      setDialogInfo({
+        type: "error",
+        text: "An error occurred while creating the board",
+      });
+    } finally {
+      setLoaderInfo(undefined);
     }
   };
 

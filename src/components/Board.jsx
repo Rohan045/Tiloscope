@@ -4,18 +4,12 @@ import Square from "./Square";
 import Tile from "./Tile";
 
 const Board = (props) => {
-  const {
-    rows,
-    cols,
-    name,
-    squareDataList,
-    tileDataList,
-    updateSavePayloadListFn,
-  } = props.config;
+  const { rows, cols, squareDataList, tileDataList, updateSavePayloadListFn } =
+    props.config;
   const { activeTileIndex, setActiveTileIndex } = useActiveTileManagement();
   const [squareList, setSquareList] = useState(squareDataList);
-  const [tileList, setTileList] = useState(tileDataList);
-  const [moveSaveStatus, setMoveSaveStatus] = useState();
+  const [tileList] = useState(tileDataList);
+  const [moveSaveStatus] = useState();
 
   const handleOnDragStart = (e, id) => {
     setActiveTileIndex(id);
@@ -24,7 +18,13 @@ const Board = (props) => {
   const handleOnDrop = async (e, index) => {
     const tile = tileList.find((tile) => tile.id === activeTileIndex);
 
-    if (!tile) return;
+    if (!tile) {
+      return;
+    }
+
+    if (squareList[index].tiles.length > 0) {
+      return;
+    }
 
     squareList[index].tiles.push(tile);
     setSquareList(squareList);

@@ -1,32 +1,48 @@
 import { PaintBucketIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { getApiCall } from "../interceptors/ApiCallInterceptors";
+import {
+  useDialogManagementStore,
+  useLoaderManagementStore,
+} from "../stores/DialogManagementStore";
 import IconInfo from "./IconInfo";
 import UserGrid from "./UserGrid";
 
 function Feed() {
+  const { setDialogInfo } = useDialogManagementStore();
+  const { setLoaderInfo } = useLoaderManagementStore();
   const [allBoardList, setAllBoardList] = useState([]);
   const [pageNo, setPageNo] = useState(-1);
-  const [open, setOpen] = useState(false);
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
 
   useEffect(() => {
     fetchAllBoardsInfo(pageNo);
   }, []);
 
   const fetchAllBoardsInfo = async (pageNo) => {
-    const response = await getApiCall("/playerboard?page=" + (pageNo + 1));
+    try {
+      setLoaderInfo({
+        text: "Fetching Feed Data...",
+      });
+      const response = await getApiCall("/playerboard?page=" + (pageNo + 1));
+      if (response.length === 0) {
+        setDialogInfo({
+          type: "info",
+          text: "No more data to load",
+        });
+        return;
+      }
 
-    if (response.length === 0) {
-      alert("No more data to load");
-      return;
+      const updatedList = allBoardList.concat(response);
+      setAllBoardList(updatedList);
+      setPageNo(pageNo + 1);
+    } catch (e) {
+      setDialogInfo({
+        type: "error",
+        text: "An error occured. Please try again",
+      });
+    } finally {
+      setLoaderInfo(undefined);
     }
-
-    const updatedList = allBoardList.concat(response);
-    setAllBoardList(updatedList);
-    setPageNo(pageNo + 1);
   };
 
   return (

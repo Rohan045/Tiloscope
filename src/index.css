@@ -99,6 +99,10 @@ button:hover {
     @apply flex flex-col justify-center items-center;
   }
 
+  .horizontal-centered {
+    @apply flex flex-row justify-center items-center;
+  }
+
   .vertical-centered {
     @apply flex flex-col justify-center items-center;
   }

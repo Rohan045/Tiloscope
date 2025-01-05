@@ -22,16 +22,11 @@ function Sidebar() {
   };
   return (
     <div>
-      <div
-        animate={{ scale: 1 }}
-        initial={{ scale: 0 }}
-        transition={{ type: "spring" }}
-        className="centered mb-5 py-5"
-      >
+      <div className="centered mb-5 py-5">
         <img
           src={loggedInUserInfo?.photoUrl || userIcon}
           alt="user-icon"
-          className="rounded-full p-5 w-[150px] h-[150px]"
+          className="rounded-full p-5 md:w-[120px] md:h-[120px] lg:w-[150px] lg:h-[150px]"
         />
 
         <span className="text-2xl font-bold">{loggedInUserInfo?.name}</span>
