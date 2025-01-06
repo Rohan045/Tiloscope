@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { postApiCall, putApiCall } from "../interceptors/ApiCallInterceptors";
+import { postApiCall, putApiCall, getApiCall } from "../interceptors/ApiCallInterceptors";
 import { useUserManagementStore } from "../stores/UserManagementStore";
 import IconInfo from "./IconInfo";
 
@@ -16,12 +16,11 @@ const CreateBoard = () => {
   const { setDialogInfo } = useDialogManagementStore();
   const { setLoaderInfo } = useLoaderManagementStore();
   const [createdBoard, setCreatedBoard] = useState();
+  const [boardList, setBoardList] = useState([]);
   const [squareUpdatePayloadList, setSquareUpdatePayloadList] = useState([]);
   const [inputForm, setInputForm] = useState({
-    size: "",
+    boardId: "",
   });
-  const boardSize = [3, 4, 5, 6, 7];
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,9 +36,27 @@ const CreateBoard = () => {
       }
     }
   }, []);
-
-  const handleBoardTypeChange = (size) => {
-    inputForm.size = size;
+  useEffect(() => {
+    const fetchBoardList = async () => {
+      try {
+        setLoaderInfo({
+          text: "Fetching Board Types...",
+        });
+        const response = await getApiCall("/board");
+        setBoardList(response);
+      } catch (e) {
+        setDialogInfo({
+          type: "error",
+          text: "An error occurred while fetching the board",
+        });
+      } finally {
+        setLoaderInfo(undefined);
+      }
+    };
+    fetchBoardList();
+  }, []);
+  const handleBoardTypeChange = (boardId) => {
+    inputForm.boardId = boardId;
     setInputForm(inputForm);
   };
 
@@ -93,39 +110,21 @@ const CreateBoard = () => {
       return;
     }
 
-    const size = inputForm.size;
-    let boardId;
-    try {
-      const payload = {
-        rows: size,
-        cols: size,
-      };
-      setLoaderInfo({
-        text: "Creating Board template",
-      });
-      const response = await postApiCall(`/board`, payload, true);
-      boardId = response.id;
-    } catch (error) {
-      setDialogInfo({
-        type: "error",
-        text: "An error occurred while creating the board",
-      });
-    }
-
+    const boardId = inputForm.boardId;
     try {
       setLoaderInfo({
-        text: "Assigning Board...",
+        text: "Creating Board...",
       });
       const response = await postApiCall(`/playerboard/${boardId}`, null, true);
       setCreatedBoard(response);
       setDialogInfo({
         type: "info",
-        text: "Board assigned successfully",
+        text: "Board created successfully",
       });
     } catch (error) {
       setDialogInfo({
         type: "error",
-        text: "An error occurred while assigning the board",
+        text: "An error occurred while created the board",
       });
     } finally {
       setLoaderInfo(undefined);
@@ -178,9 +177,9 @@ const CreateBoard = () => {
           >
             <option value="-1">Select board type</option>
 
-            {boardSize.map((element) => (
-              <option key={element} value={element}>
-                {element}x{element}
+            {boardList.map((board) => (
+              <option key={board.id} value={board.id}>
+                {board.rows}x{board.cols}
               </option>
             ))}
           </select>

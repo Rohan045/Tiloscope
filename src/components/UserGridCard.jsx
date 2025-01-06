@@ -13,7 +13,7 @@ const UserGridCard = (props) => {
     try{
       setVoteLoading(true);
       const response = await putApiCall("/playerboard/upvote/" + boardId,null, true);
-      setUpvotes(response.vote);
+      setUpvotes(response.liked.length);
       setUpvoted(true);
       setVoteLoading(false);
     }catch(error){
