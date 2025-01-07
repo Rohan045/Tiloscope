@@ -8,7 +8,7 @@ const DialogBox = (props) => {
   const { setDialogInfo } = useDialogManagementStore();
 
   return (
-    <div className="card flex flex-col w-full bg-zinc-800 text-gray-300 md:w-1/4">
+    <div className="card flex flex-col w-full bg-zinc-800 text-gray-300 md:w-1/2 lg:w-1/4">
       <div className="flex flex-row justify-between p-3 border-solid border-zinc-700 border-b font-semibold">
         <>
           {type === "success" && (

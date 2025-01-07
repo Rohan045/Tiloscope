@@ -9,7 +9,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 
 const App = () => {
   return (
-    <div className="bg-black text-xs text-gray-300 h-[100vh] md:text-md lg:text-lg overflow-hidden">
+    <div className="bg-black text-xs text-gray-300 h-[100vh] md:text-lg overflow-hidden">
       <DialogLoaderContainer />
       <BrowserRouter>
         <Routes>

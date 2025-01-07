@@ -24,7 +24,7 @@ const UserGrid = (props) => {
         email={boardInfo?.player?.email}
         photoUrl={boardInfo?.player?.photoUrl}
         rank={props.rank}
-        vote={boardInfo?.liked.length}
+        vote={boardInfo?.liked?.length}
         boardId={boardInfo?.id}
       />
 
