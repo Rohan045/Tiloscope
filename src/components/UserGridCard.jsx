@@ -1,14 +1,41 @@
 import { ArrowBigUp, Shield, Vote, LoaderCircle } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import userIcon from "../assets/user-icon.png";
+import { useNavigate } from "react-router-dom";
 import IconInfo from "./IconInfo";
+import { useUserManagementStore } from "../stores/UserManagementStore";
 import { putApiCall } from "../interceptors/ApiCallInterceptors";
 
 const UserGridCard = (props) => {
-  const { name, email, photoUrl, rank, vote, boardId } = props;
+  const { name, email, photoUrl, rank, vote, boardId, likedPlayer } = props;
+  const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
   const [upvotes, setUpvotes] = useState(vote);
   const [upvoted, setUpvoted] = useState(false);
   const [voteLoading, setVoteLoading] = useState(false);
+  const navigate = useNavigate();
+  useEffect(()=>{
+    const user = localStorage.getItem("user");
+    if (loggedInUserInfo === undefined) {
+      if (user) {
+        setLoggedInUserInfo(user);
+      } else {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        navigate("/");
+      }
+    }
+    console.log(loggedInUserInfo);
+    console.log('Liked player');
+    likedPlayer.forEach(player => {
+      console.log(player.id);
+      console.log(loggedInUserInfo.id);
+      if(player.id === loggedInUserInfo.id){
+        setUpvoted(true);
+        console.log("upvoted");
+        return;
+      }
+    });
+  });
   const upvoteHandle = async () => {
     try{
       setVoteLoading(true);

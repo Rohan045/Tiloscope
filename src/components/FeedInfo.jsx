@@ -59,7 +59,6 @@ function Feed() {
 
       const updatedList = allBoardList.concat(response);
       setAllBoardList(updatedList);
-      console.log(allBoardList);
       setPageNo(pageNo + 1);
     } catch (e) {
       setDialogInfo({
