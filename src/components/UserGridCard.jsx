@@ -24,14 +24,9 @@ const UserGridCard = (props) => {
         navigate("/");
       }
     }
-    console.log(loggedInUserInfo);
-    console.log('Liked player');
     likedPlayer.forEach(player => {
-      console.log(player.id);
-      console.log(loggedInUserInfo.id);
       if(player.id === loggedInUserInfo.id){
         setUpvoted(true);
-        console.log("upvoted");
         return;
       }
     });
