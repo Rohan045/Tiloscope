@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { postApiCall, putApiCall, getApiCall } from "../interceptors/ApiCallInterceptors";
+import {
+  getApiCall,
+  postApiCall,
+  putApiCall,
+} from "../interceptors/ApiCallInterceptors";
 import { useUserManagementStore } from "../stores/UserManagementStore";
 import IconInfo from "./IconInfo";
 import { useLocation } from "react-router-dom";
@@ -79,19 +83,16 @@ const CreateBoard = () => {
       return;
     }
 
-    const promises = squareUpdatePayloadList.map((payload) => {
-      return putApiCall(
-        `/playerboard/square`,
+    try {
+      const promises = await putApiCall(
+        "/playerboard",
         {
-          playerBoardSquareId: payload.playerBoardSquareId,
-          tileIds: payload.tileIds,
+          playerBoardId: createdBoard?.id,
+          playerBoardSquareUpdateRequests: squareUpdatePayloadList,
         },
         true
       );
-    });
 
-    try {
-      await Promise.all(promises);
       setDialogInfo({
         type: "info",
         text: "Board changes have been saved successfully",
@@ -212,7 +213,7 @@ const CreateBoard = () => {
               cols: createdBoard?.board?.cols,
               name: <span className="text-2xl font-bold mx-2">Board New</span>,
               squareDataList: convertToThisList(
-                createdBoard.playerBoardSquares
+                createdBoard?.playerBoardSquares
               ),
               tileDataList: loggedInUserInfo?.tiles,
               updateSavePayloadListFn: updateSavePayloadList,

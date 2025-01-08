@@ -7,9 +7,9 @@ import {
   useLoaderManagementStore,
 } from "../stores/DialogManagementStore";
 import { useUserManagementStore } from "../stores/UserManagementStore";
+import DefaultFeedSkeleton from "./DefaultFeedSkeleton";
 import IconInfo from "./IconInfo";
 import UserGrid from "./UserGrid";
-import DefaultFeedSkeleton from "./DefaultFeedSkeleton";
 
 function Feed() {
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
@@ -23,7 +23,7 @@ function Feed() {
     <DefaultFeedSkeleton />,
     <DefaultFeedSkeleton />,
     <DefaultFeedSkeleton />,
-    <DefaultFeedSkeleton />
+    <DefaultFeedSkeleton />,
   ];
   const [pageNo, setPageNo] = useState(-1);
 
@@ -71,32 +71,40 @@ function Feed() {
   return (
     <div className="flex flex-col p-3">
       <div className="flex flex-col w-full">
-        {(allBoardList.length > 0) ? allBoardList.map((boardInfo, index) => {
-          return (
-            <div key={index} className="card flex flex-col mb-3">
-              <UserGrid key={index} boardInfo={{ boardInfo }} />
-              {index === allBoardList.length - 1 && (
-                <div className="flex flex-row justify-center p-5">
-                  <div
-                    className="cursor-pointer"
-                    onClick={() => fetchAllBoardsInfo(pageNo)}
-                  >
-                    <IconInfo
-                      config={{
-                        icon: <PaintBucketIcon />,
-                        text: (
-                          <span className="text-xs">
-                            Click to load more data...
-                          </span>
-                        ),
-                      }}
-                    />
-                  </div>
+        {allBoardList.length > 0
+          ? allBoardList.map((boardInfo, index) => {
+              return (
+                <div key={index} className="card flex flex-col mb-3">
+                  <UserGrid key={index} boardInfo={{ boardInfo }} />
+                  {index === allBoardList.length - 1 && (
+                    <div className="flex flex-row justify-center p-5">
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => fetchAllBoardsInfo(pageNo)}
+                      >
+                        <IconInfo
+                          config={{
+                            icon: <PaintBucketIcon />,
+                            text: (
+                              <span className="text-xs">
+                                Click to load more data...
+                              </span>
+                            ),
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          );
-        }) : defaultFeed.map((def, index) => { return <div key={index} className="card flex flex-col mb-3">{def}</div> })}
+              );
+            })
+          : defaultFeed.map((def, index) => {
+              return (
+                <div key={index} className="card flex flex-col mb-3">
+                  {def}
+                </div>
+              );
+            })}
       </div>
     </div>
   );

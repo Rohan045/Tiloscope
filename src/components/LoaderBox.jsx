@@ -4,7 +4,7 @@ import { ColorRing } from "react-loader-spinner";
 const LoaderBox = (props) => {
   const { text } = props.config;
   return (
-    <div className="card flex flex-col bg-zinc-800 text-gray-300 w-[200px]  h-[200px]">
+    <div className="card flex flex-col bg-zinc-800 text-gray-300 text-sm w-[200px] h-[200px]">
       <div className="centered">
         <ColorRing
           visible={true}
