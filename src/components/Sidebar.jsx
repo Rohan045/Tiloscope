@@ -11,9 +11,7 @@ const Sidebar = () => {
 
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
 
-  useEffect(() => {
-    console.log(typeof loggedInUserInfo);
-  }, [loggedInUserInfo]);
+  useEffect(() => {}, [loggedInUserInfo]);
 
   const handleButton = (button) => () => {
     if (button === "logOut") {

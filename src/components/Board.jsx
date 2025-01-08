@@ -22,11 +22,11 @@ const Board = (props) => {
       return;
     }
 
-    if (squareList[index].tiles.length > 0) {
-      return;
-    }
+    // if (squareList[index].tiles.length > 0) {
+    //   return;
+    // }
 
-    squareList[index].tiles.push(tile);
+    squareList[index].tiles[0] = tile;
     setSquareList(squareList);
 
     updateSavePayloadListFn({
