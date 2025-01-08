@@ -21,8 +21,6 @@ const Sidebar = () => {
       localStorage.removeItem("user");
       setLoggedInUserInfo(undefined);
       navigate("/");
-    } else if (button === "boards") {
-      navigate("/game");
     }
   };
 
@@ -58,7 +56,7 @@ const Sidebar = () => {
           <span className="font-meduim pl-5">Create Board</span>
         </div>
       </div>
-      <div className={style} onClick={handleButton("boards")}>
+      <div className={style} onClick={() => navigate("boards")}>
         <div className="flex flex-row w-[150px]">
           <Brush />
           <span className="font-meduim pl-5">My Boards</span>

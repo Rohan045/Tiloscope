@@ -6,6 +6,7 @@ import { default as FeedInfo } from "./components/FeedInfo.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import MyBoards from "./components/MyBoards.jsx";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="home" element={<HomePage />}>
             <Route path="feed" element={<FeedInfo />} />
             <Route path="createBoard" element={<CreateBoard />} />
+            <Route path="boards" element={<MyBoards />} />
           </Route>
           <Route path="*" element={<ErrorPage />} />
         </Routes>

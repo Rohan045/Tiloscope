@@ -1,6 +1,7 @@
 import React from "react";
 import Board from "./Board";
 import UserGridCard from "./UserGridCard";
+import MyBoardCard from "./MyBoardCard";
 
 const UserGrid = (props) => {
   const { boardInfo } = props.boardInfo;
@@ -19,7 +20,7 @@ const UserGrid = (props) => {
 
   return (
     <div className="flex flex-col w-full">
-      <UserGridCard
+      {!props.MyBoard ? <UserGridCard
         name={boardInfo?.player?.name}
         email={boardInfo?.player?.email}
         photoUrl={boardInfo?.player?.photoUrl}
@@ -27,7 +28,7 @@ const UserGrid = (props) => {
         vote={boardInfo?.liked?.length}
         boardId={boardInfo?.id}
         likedPlayer={boardInfo?.liked}
-      />
+      /> : <MyBoardCard boardInfo={{boardInfo}} />}
 
       <div className="flex flex-row justify-center p-3">
         <Board

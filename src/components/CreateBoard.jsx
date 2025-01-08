@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { postApiCall, putApiCall, getApiCall } from "../interceptors/ApiCallInterceptors";
 import { useUserManagementStore } from "../stores/UserManagementStore";
 import IconInfo from "./IconInfo";
-
+import { useLocation } from "react-router-dom";
 import { Plus, Save } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -22,7 +22,9 @@ const CreateBoard = () => {
     boardId: "",
   });
   const navigate = useNavigate();
-
+  const [newBoard, setNewBoard] = useState(true);
+  const location = useLocation();
+  const { boardInfo } = location.state || {};
   useEffect(() => {
     const user = sessionStorage.getItem("user");
 
@@ -37,23 +39,28 @@ const CreateBoard = () => {
     }
   }, []);
   useEffect(() => {
-    const fetchBoardList = async () => {
-      try {
-        setLoaderInfo({
-          text: "Fetching Board Types...",
-        });
-        const response = await getApiCall("/board");
-        setBoardList(response);
-      } catch (e) {
-        setDialogInfo({
-          type: "error",
-          text: "An error occurred while fetching the board",
-        });
-      } finally {
-        setLoaderInfo(undefined);
-      }
-    };
-    fetchBoardList();
+    if (boardInfo !== undefined) {
+      setNewBoard(false);
+      setCreatedBoard(boardInfo);
+    } else {
+      const fetchBoardList = async () => {
+        try {
+          setLoaderInfo({
+            text: "Fetching Board Types...",
+          });
+          const response = await getApiCall("/board");
+          setBoardList(response);
+        } catch (e) {
+          setDialogInfo({
+            type: "error",
+            text: "An error occurred while fetching the board",
+          });
+        } finally {
+          setLoaderInfo(undefined);
+        }
+      };
+      fetchBoardList();
+    }
   }, []);
   const handleBoardTypeChange = (boardId) => {
     inputForm.boardId = boardId;
@@ -169,7 +176,7 @@ const CreateBoard = () => {
         className="flex flex-row border-solid border-zinc-700 border-b justify-between p-5 text-sm"
         onSubmit={(e) => actionOnSubmit(e)}
       >
-        <div className="flex flex-row">
+        {newBoard ? <div className="flex flex-row">
           <select
             className="p-2 w-[170px] bg-black"
             onChange={(e) => handleBoardTypeChange(e.target.value)}
@@ -183,14 +190,14 @@ const CreateBoard = () => {
               </option>
             ))}
           </select>
-        </div>
+        </div> : <div className="text-xl">Edit Board</div>}
 
         <div className="flex flex-row">
-          <button className="mr-3" name="createBoard" type="submit">
+          {newBoard ? <button className="mr-3 bg-transparent border-solid border-zinc-700 border-[1px]" name="createBoard" type="submit">
             <IconInfo config={{ icon: <Plus />, text: "Create Board" }} />
-          </button>
+          </button> : <></>}
           {createdBoard !== undefined && (
-            <button name="saveBoard" type="submit">
+            <button  className="bg-transparent border-solid border-zinc-700 border-[1px]"name="saveBoard" type="submit">
               <IconInfo config={{ icon: <Save />, text: "Save Board" }} />
             </button>
           )}
