@@ -196,7 +196,7 @@ const CreateBoard = () => {
           <div className="text-xl">Edit Board</div>
         )}
 
-        <div className="flex flex-row justify-end mt-3 w-[70%] md:mt-0">
+        <div className="flex flex-row justify-end mt-3 md:w-[70%] md:mt-0">
           {newBoard ? (
             <button
               className="flex flex-row justify-center mr-3 bg-transparent border-solid border-zinc-700 border-[1px] w-1/2"
