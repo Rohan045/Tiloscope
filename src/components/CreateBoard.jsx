@@ -1,19 +1,18 @@
+import { Plus, Save } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   getApiCall,
   postApiCall,
   putApiCall,
 } from "../interceptors/ApiCallInterceptors";
-import { useUserManagementStore } from "../stores/UserManagementStore";
-import IconInfo from "./IconInfo";
-import { useLocation } from "react-router-dom";
-import { Plus, Save } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import {
   useDialogManagementStore,
   useLoaderManagementStore,
 } from "../stores/DialogManagementStore";
+import { useUserManagementStore } from "../stores/UserManagementStore";
 import Board from "./Board";
+import IconInfo from "./IconInfo";
 
 const CreateBoard = () => {
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
@@ -174,31 +173,47 @@ const CreateBoard = () => {
   return (
     <div className="flex flex-col">
       <form
-        className="flex flex-row border-solid border-zinc-700 border-b justify-between p-5 text-sm"
+        className="flex flex-col border-solid border-zinc-700 border-b justify-between p-3 text-sm md:flex-row"
         onSubmit={(e) => actionOnSubmit(e)}
       >
-        {newBoard ? <div className="flex flex-row">
-          <select
-            className="p-2 w-[170px] bg-black"
-            onChange={(e) => handleBoardTypeChange(e.target.value)}
-            required
-          >
-            <option value="-1">Select board type</option>
+        {newBoard ? (
+          <div className="flex flex-row">
+            <select
+              className="p-2 w-[170px] bg-black"
+              onChange={(e) => handleBoardTypeChange(e.target.value)}
+              required
+            >
+              <option value="-1">Select board type</option>
 
-            {boardList.map((board) => (
-              <option key={board.id} value={board.id}>
-                {board.rows}x{board.cols}
-              </option>
-            ))}
-          </select>
-        </div> : <div className="text-xl">Edit Board</div>}
+              {boardList.map((board) => (
+                <option key={board.id} value={board.id}>
+                  {board.rows}x{board.cols}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : (
+          <div className="text-xl">Edit Board</div>
+        )}
 
-        <div className="flex flex-row">
-          {newBoard ? <button className="mr-3 bg-transparent border-solid border-zinc-700 border-[1px]" name="createBoard" type="submit">
-            <IconInfo config={{ icon: <Plus />, text: "Create Board" }} />
-          </button> : <></>}
+        <div className="flex flex-row justify-end mt-3 w-[70%] md:mt-0">
+          {newBoard ? (
+            <button
+              className="flex flex-row justify-center mr-3 bg-transparent border-solid border-zinc-700 border-[1px] w-1/2"
+              name="createBoard"
+              type="submit"
+            >
+              <IconInfo config={{ icon: <Plus />, text: "Create Board" }} />
+            </button>
+          ) : (
+            <></>
+          )}
           {createdBoard !== undefined && (
-            <button  className="bg-transparent border-solid border-zinc-700 border-[1px]"name="saveBoard" type="submit">
+            <button
+              className="flex flex-row justify-center bg-transparent border-solid border-zinc-700 border-[1px] w-1/2"
+              name="saveBoard"
+              type="submit"
+            >
               <IconInfo config={{ icon: <Save />, text: "Save Board" }} />
             </button>
           )}
