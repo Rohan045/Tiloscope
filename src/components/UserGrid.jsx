@@ -1,7 +1,8 @@
 import React from "react";
+import bgImg from "../assets/usergrid-background.svg";
 import Board from "./Board";
-import UserGridCard from "./UserGridCard";
 import MyBoardCard from "./MyBoardCard";
+import UserGridCard from "./UserGridCard";
 
 const UserGrid = (props) => {
   const { boardInfo } = props.boardInfo;
@@ -20,17 +21,28 @@ const UserGrid = (props) => {
 
   return (
     <div className="flex flex-col w-full">
-      {!props.MyBoard ? <UserGridCard
-        name={boardInfo?.player?.name}
-        email={boardInfo?.player?.email}
-        photoUrl={boardInfo?.player?.photoUrl}
-        rank={props.rank}
-        vote={boardInfo?.liked?.length}
-        boardId={boardInfo?.id}
-        likedPlayer={boardInfo?.liked}
-      /> : <MyBoardCard boardInfo={{boardInfo}} />}
+      {!props.MyBoard ? (
+        <UserGridCard
+          name={boardInfo?.player?.name}
+          email={boardInfo?.player?.email}
+          photoUrl={boardInfo?.player?.photoUrl}
+          rank={props.rank}
+          vote={boardInfo?.liked?.length}
+          boardId={boardInfo?.id}
+          likedPlayer={boardInfo?.liked}
+        />
+      ) : (
+        <MyBoardCard boardInfo={{ boardInfo }} />
+      )}
 
-      <div className="flex flex-row justify-center p-3">
+      <div
+        className="flex flex-row justify-center p-3"
+        style={{
+          backgroundImage: `url(${bgImg})`,
+          backgroundSize: "cover", // adjust to your needs
+          backgroundPosition: "center", // adjust to your needs
+        }}
+      >
         <Board
           config={{
             rows: boardInfo?.board?.rows,
