@@ -5,8 +5,8 @@ import IconInfo from "./IconInfo";
 
 const Header = () => {
   return (
-    <div className="sticky bg-transparent top-0 z-10 flex flex-row justify-between p-1 px-5 border-solid border-zinc-700 border-b shadow-sm">
-      <div className="w-[100px] h-[100px] md:w-[70px] md:h-[70px]">
+    <div className="sticky bg-transparent top-0 z-10 flex flex-row justify-between p-3 border-solid border-zinc-700 border-b md:p-1 md:px-5">
+      <div className="w-[50px] h-[50px] md:w-[70px] md:h-[70px]">
         <img src={logo} alt="logo" />
       </div>
       <div
@@ -19,6 +19,7 @@ const Header = () => {
         <IconInfo
           config={{
             icon: <Github />,
+            text: "Source",
           }}
         />
       </div>

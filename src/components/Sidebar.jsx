@@ -1,4 +1,4 @@
-import { Brush, House, LogOut, ShieldHalf } from "lucide-react";
+import { Brush, House, LogOut } from "lucide-react";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import userIcon from "../assets/user-icon.png";
@@ -28,7 +28,7 @@ const Sidebar = () => {
         <img
           src={loggedInUserInfo?.photoUrl || userIcon}
           alt="user-icon"
-          className="rounded-full object-cover p-5 md:w-[120px] md:h-[120px] lg:w-[150px] lg:h-[150px]"
+          className="rounded-full object-cover w-[120px] h-[120px] p-5 lg:w-[150px] lg:h-[150px]"
         />
 
         <span className="text-2xl font-bold">{loggedInUserInfo?.name}</span>
@@ -40,12 +40,6 @@ const Sidebar = () => {
         <div className="flex flex-row w-[150px]">
           <House />
           <span className="font-meduim pl-5">Home</span>
-        </div>
-      </div>
-      <div className={style}>
-        <div className="flex flex-row w-[150px]">
-          <ShieldHalf />
-          <span className="font-meduim pl-5">Leaderboard</span>
         </div>
       </div>
       <div className={style} onClick={() => navigate("createBoard")}>
