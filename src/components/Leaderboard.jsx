@@ -1,56 +1,65 @@
 import { ShieldHalf } from "lucide-react";
-import React from "react";
-import LeaderboardUser from "./LeaderboardUser";
+import React, { useEffect } from "react";
+import { getApiCall } from "../interceptors/ApiCallInterceptors";
+import {
+  useDialogManagementStore,
+  useLoaderManagementStore,
+} from "../stores/DialogManagementStore";
+import { useLeaderboardManagement } from "../stores/LeaderboardManagementStore";
+import UserInfo from "./UserInfo";
 
 const Leaderboard = () => {
-  var leaderBoard = [
-    {
-      name: "Rohan",
-      points: 52,
-      rank: 1,
-    },
-    {
-      name: "Vishal",
-      points: 52,
-      rank: 2,
-    },
-    {
-      name: "Soumya",
-      points: 52,
-      rank: 3,
-    },
-    {
-      name: "Arpita",
-      points: 52,
-      rank: 4,
-    },
-    {
-      name: "Rajib",
-      points: 52,
-      rank: 5,
-    },
-  ];
+  const { setDialogInfo } = useDialogManagementStore();
+  const { setLoaderInfo } = useLoaderManagementStore();
+  const { leaderboard, setLeaderboard } = useLeaderboardManagement();
+
+  useEffect(() => {
+    fetchLeaderboard();
+  }, []);
+
+  const fetchLeaderboard = async () => {
+    try {
+      setLoaderInfo({
+        text: "Loading Leaderboard...",
+      });
+      const response = await getApiCall("/player/leaderboard", true);
+      setLeaderboard(response);
+    } catch (error) {
+      setDialogInfo({
+        type: "error",
+        text: "An error occured. Please try again",
+      });
+    } finally {
+      setLoaderInfo(undefined);
+    }
+  };
+
   return (
-    <>
-      <div className="flex flex-col">
-        <div className="vertical-centered font-bold border-solid border-zinc-700 border-b p-3 h-[70px]">
-          <div className="flex flex-row w-[150px]">
-            <ShieldHalf />
-            <span className="font-meduim pl-5">Leaderboard</span>
-          </div>
+    <div className="flex flex-col">
+      <div className="vertical-centered font-bold border-solid border-zinc-700 border-b p-3 h-[70px]">
+        <div className="flex flex-row w-[150px]">
+          <ShieldHalf />
+          <span className="font-meduim pl-5">Leaderboard</span>
         </div>
-        {leaderBoard.map((user, index) => {
+      </div>
+      <div className="p-3">
+        {leaderboard.map((data, index) => {
           return (
-            <LeaderboardUser
-              key={index}
-              name={user.name}
-              points={user.points}
-              rank={user.rank}
-            />
+            <div className="py-1">
+              <UserInfo
+                config={{
+                  name: data[0],
+                  // email: data[1],
+                  description: data[2],
+                  // rank: index,
+                  photoUrl: data[3],
+                }}
+              />
+            </div>
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 

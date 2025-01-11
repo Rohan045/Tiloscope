@@ -1,8 +1,10 @@
-import { Brush, House, LogOut } from "lucide-react";
+import { Brush, House, LogOut, Shield } from "lucide-react";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import userIcon from "../assets/user-icon.png";
+import { useLeaderboardManagement } from "../stores/LeaderboardManagementStore";
 import { useUserManagementStore } from "../stores/UserManagementStore";
+import IconInfo from "./IconInfo";
 
 const Sidebar = () => {
   const style =
@@ -10,8 +12,13 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
+  const { leaderboard, setLeaderboard } = useLeaderboardManagement();
 
   useEffect(() => {}, [loggedInUserInfo]);
+
+  const getRankFromPlayerBoard = (email) => {
+    return leaderboard.findIndex((player) => player[1] === email) + 1;
+  };
 
   const handleButton = (button) => () => {
     if (button === "logOut") {
@@ -32,8 +39,16 @@ const Sidebar = () => {
         />
 
         <span className="text-2xl font-bold">{loggedInUserInfo?.name}</span>
-        <span>{loggedInUserInfo?.email}</span>
-        <span>rank #100</span>
+        <span>{loggedInUserInfo?.description}</span>
+        <div className="text-sm mt-3">
+          <IconInfo
+            config={{
+              icon: <Shield />,
+              text: `Rank ${getRankFromPlayerBoard(loggedInUserInfo?.email)}`,
+              color: "text-green-500",
+            }}
+          />
+        </div>
       </div>
 
       <div className={style} onClick={() => navigate("feed")}>

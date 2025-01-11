@@ -173,7 +173,7 @@ const CreateBoard = () => {
   return (
     <div className="flex flex-col">
       <form
-        className="flex flex-col border-solid border-zinc-700 border-b justify-between p-3 text-sm md:flex-row"
+        className="flex flex-col border-solid border-zinc-700 border-b justify-between p-3 md:flex-row"
         onSubmit={(e) => actionOnSubmit(e)}
       >
         {newBoard ? (
@@ -193,7 +193,7 @@ const CreateBoard = () => {
             </select>
           </div>
         ) : (
-          <div className="text-xl">Edit Board</div>
+          <div className="vertical-centered font-medium">Edit Board</div>
         )}
 
         <div className="flex flex-row justify-end mt-3 md:w-[70%] md:mt-0">
