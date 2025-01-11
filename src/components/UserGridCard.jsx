@@ -34,7 +34,7 @@ const UserGridCard = (props) => {
       }
     }
     likedPlayer.forEach((player) => {
-      if (player.id === loggedInUserInfo.id) {
+      if (player.id === loggedInUserInfo?.id) {
         setUpvoted(true);
         return;
       }
