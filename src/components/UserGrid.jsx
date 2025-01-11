@@ -1,5 +1,8 @@
+import download from "downloadjs";
+import * as htmlToImage from "html-to-image";
 import React from "react";
 import bgImg from "../assets/usergrid-background.svg";
+import { useDialogManagementStore } from "../stores/DialogManagementStore";
 import { useLeaderboardManagement } from "../stores/LeaderboardManagementStore";
 import Board from "./Board";
 import MyBoardCard from "./MyBoardCard";
@@ -8,6 +11,7 @@ import UserGridCard from "./UserGridCard";
 const UserGrid = (props) => {
   const { boardInfo } = props.boardInfo;
   const { leaderboard, setLeaderboard } = useLeaderboardManagement();
+  const { setDialogInfo } = useDialogManagementStore();
 
   const getRankFromPlayerBoard = (email) => {
     return leaderboard.findIndex((player) => player[1] === email) + 1;
@@ -26,8 +30,46 @@ const UserGrid = (props) => {
     return thisList;
   };
 
+  const downloadUserGridCard = () => {
+    const node = document.getElementById(boardInfo?.id);
+
+    htmlToImage
+      .toPng(node)
+      .then(function (dataUrl) {
+        download(dataUrl, "my-node.png");
+      })
+      .catch(function (error) {
+        console.error("oops, something went wrong!", error);
+      });
+  };
+
+  const getShareUrl = () => {
+    setDialogInfo({
+      type: "info",
+      text: (
+        <div className="flex flex-col">
+          <span>Share link below :</span>
+          <div
+            className="text-blue-700 cursor-pointer"
+            onClick={() =>
+              window.open(
+                process.env.REACT_APP_FRONTEND_BASE_URL +
+                  "/shareView/" +
+                  boardInfo?.id
+              )
+            }
+          >
+            {process.env.REACT_APP_FRONTEND_BASE_URL +
+              "/shareView/" +
+              boardInfo?.id}
+          </div>
+        </div>
+      ),
+    });
+  };
+
   return (
-    <div className="flex flex-col w-full">
+    <div id={boardInfo?.id} className="flex flex-col w-full">
       {!props.MyBoard ? (
         <UserGridCard
           name={boardInfo?.player?.name}
@@ -36,8 +78,10 @@ const UserGrid = (props) => {
           photoUrl={boardInfo?.player?.photoUrl}
           rank={getRankFromPlayerBoard(boardInfo?.player?.email)}
           vote={boardInfo?.liked?.length}
-          boardId={boardInfo?.id}
+          playerBoardId={boardInfo?.id}
           likedPlayer={boardInfo?.liked}
+          downloadUserGridCardFn={downloadUserGridCard}
+          getShareUrlFn={getShareUrl}
         />
       ) : (
         <MyBoardCard boardInfo={{ boardInfo }} />

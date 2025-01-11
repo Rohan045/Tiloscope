@@ -7,6 +7,7 @@ import MyBoards from "./components/MyBoards.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import ShareViewPage from "./pages/ShareViewPage.jsx";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
             <Route path="createBoard" element={<CreateBoard />} />
             <Route path="boards" element={<MyBoards />} />
           </Route>
+          <Route path="/shareView/:id" element={<ShareViewPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>

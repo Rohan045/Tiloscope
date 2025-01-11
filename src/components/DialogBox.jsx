@@ -56,7 +56,7 @@ const DialogBox = (props) => {
         </div>
       </div>
       <div className="flex flex-col bg-[rgb(23,23,23)] p-3">
-        <div className="h-[100px] overflow-auto">
+        <div className="h-fit overflow-auto">
           <span>{text}</span>
         </div>
         <div className="flex flex-row justify-end">
