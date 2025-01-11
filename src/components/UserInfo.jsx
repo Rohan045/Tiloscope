@@ -5,8 +5,8 @@ const UserInfo = (props) => {
   const { name, email, description, rank, photoUrl } = props.config;
 
   return (
-    <div className="flex pb-2 cursor-pointer">
-      <div className="rounded-full h-[50px] w-[50px] border-solid border-zinc-700 border bg-slate-800">
+    <div className="flex flex-row pb-2 cursor-pointer">
+      <div className="centered rounded-full h-[50px] w-[50px] border-solid border-zinc-700 border bg-slate-800 ">
         <img
           src={photoUrl || userIcon}
           alt="dp"
@@ -17,7 +17,11 @@ const UserInfo = (props) => {
         <span className="font-bold">{name}</span>
         {email && <span className="text-xs">{email}</span>}
         {rank && <span className="text-xs">{rank}</span>}
-        {description && <span className="text-xs">{description}</span>}
+        {description && (
+          <article className="text-xs break-words">
+            <p>{description}</p>
+          </article>
+        )}
       </div>
     </div>
   );

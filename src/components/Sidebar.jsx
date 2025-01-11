@@ -39,8 +39,11 @@ const Sidebar = () => {
         />
 
         <span className="text-2xl font-bold">{loggedInUserInfo?.name}</span>
-        <span>{loggedInUserInfo?.description}</span>
-        <div className="text-sm mt-3">
+        <article className="text-sm break-words text-center mt-2 w-4/5">
+          <p>{loggedInUserInfo?.description}</p>
+        </article>
+
+        <div className="text-sm mt-5">
           <IconInfo
             config={{
               icon: <Shield />,

@@ -162,13 +162,15 @@ const Authentication = () => {
 
       {isSignup && (
         <div className="form-group">
-          <label htmlFor="description">Description (Optional):</label>
+          <label htmlFor="description">Your Tag Line (Optional):</label>
           <textarea
             className="border w-full"
             id="description"
             name="description"
+            maxLength={30}
             value={formData.description}
             onChange={handleChange}
+            placeholder="Max 30 characters allowed"
           />
         </div>
       )}
