@@ -10,4 +10,9 @@ const useLoaderManagementStore = create((set) => ({
   setLoaderInfo: (data) => set((state) => ({ loaderInfo: data })),
 }));
 
-export { useDialogManagementStore, useLoaderManagementStore };
+const useEditProfileManagementStore = create((set) => ({
+  profileInfo: undefined,
+  setProfileInfo: (data) => set((state) => ({ profileInfo: data })),
+}));
+
+export { useDialogManagementStore, useLoaderManagementStore, useEditProfileManagementStore };

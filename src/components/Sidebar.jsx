@@ -1,9 +1,10 @@
-import { Brush, House, LogOut, Shield } from "lucide-react";
+import { Brush, House, LogOut, Shield, Palette, UserRoundPen } from "lucide-react";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import userIcon from "../assets/user-icon.png";
 import { useLeaderboardManagement } from "../stores/LeaderboardManagementStore";
 import { useUserManagementStore } from "../stores/UserManagementStore";
+import { useEditProfileManagementStore } from "../stores/DialogManagementStore";
 import IconInfo from "./IconInfo";
 
 const Sidebar = () => {
@@ -13,13 +14,16 @@ const Sidebar = () => {
 
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
   const { leaderboard, setLeaderboard } = useLeaderboardManagement();
+  const { setProfileInfo } = useEditProfileManagementStore();
 
-  useEffect(() => {}, [loggedInUserInfo]);
+  useEffect(() => { }, [loggedInUserInfo]);
 
   const getRankFromPlayerBoard = (email) => {
     return leaderboard.findIndex((player) => player[1] === email) + 1;
   };
-
+  const handleEditProfileButton = () => {
+    setProfileInfo(loggedInUserInfo);
+  }
   const handleButton = (button) => () => {
     if (button === "logOut") {
       localStorage.removeItem("token");
@@ -60,6 +64,12 @@ const Sidebar = () => {
           <span className="font-meduim pl-5">Home</span>
         </div>
       </div>
+      <div className={style} onClick={() => handleEditProfileButton()}>
+        <div className="flex flex-row w-[150px]">
+          <UserRoundPen />
+          <span className="font-meduim pl-5">Edit Profile</span>
+        </div>
+      </div>
       <div className={style} onClick={() => navigate("createBoard")}>
         <div className="flex flex-row w-[150px]">
           <Brush />
@@ -68,7 +78,7 @@ const Sidebar = () => {
       </div>
       <div className={style} onClick={() => navigate("boards")}>
         <div className="flex flex-row w-[150px]">
-          <Brush />
+          <Palette />
           <span className="font-meduim pl-5">My Boards</span>
         </div>
       </div>
