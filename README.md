@@ -88,11 +88,12 @@ Navigate to the project directory and install the required dependencies:
 ### Set up Environment Variables
 
 You need to configure the `.env` file in the root directory with the correct values for your environment. Create a `.env` file (if it doesn't already exist) and update it with the following content:
-
+```bash
 REACT_APP_FRONTEND_BASE_URL = http://localhost:PORT 
 REACT_APP_SERVICE_BASE_URL = http://localhost:PORT 
 REACT_APP_FRONTEND_URL = https://github.com/Rohan045/tiloscope 
 REACT_APP_BACKEND_URL = https://github.com/vishal2468/tiloscope
+```
 
 - Replace `PORT` with the appropriate port number for your development environment.
 
