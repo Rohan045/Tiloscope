@@ -1,70 +1,184 @@
-# Getting Started with Create React App
+# Tiloscope
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Tiloscope is a web application for creating, managing, and interacting with boards in a community-driven platform. It allows users to register, create boards, share them, upvote, and view user profiles. The application includes features like responsive design and quick loading, ensuring an optimal user experience.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **User Registration**: Register with valid credentials and get redirected to the dashboard.
+- **User Login**: Log in with valid credentials and get redirected to the homepage.
+- **Create a Board**: Create a new board with a selected layout.
+- **Show/Hide/Edit Board**: Toggle visibility or edit boards in "My Boards".
+- **Share a Board**: Share a board with others via a link.
+- **Upvote a Board**: Increase the upvote count on a board.
+- **Leaderboard**: View the leaderboard displaying boards ranked by upvotes.
+- **User Profile**: Click on a user's profile picture to view their information.
+- **User Profile Edit**: Edit your own profile information.
+- **Performance**: Fast loading and responsive UI on various screen sizes.
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To run the application locally, you need to have the following installed:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Node.js (Preferred version: 20+)
+- npm (Node Package Manager)
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Clone the Repository
 
-### `npm run build`
+Clone the repository using the following command:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`git clone https://github.com/Rohan045/tiloscope.git`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Install Dependencies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Navigate to the project directory and install the required dependencies:
 
-### `npm run eject`
+`cd tiloscope`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`npm install`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Set up Environment Variables
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+You need to configure the `.env` file in the root directory with the correct values for your environment. Create a `.env` file (if it doesn't already exist) and update it with the following content:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+markdown
+Copy code
+# Tiloscope
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Tiloscope is a web application for creating, managing, and interacting with boards in a community-driven platform. It allows users to register, create boards, share them, upvote, and view user profiles. The application includes features like responsive design and quick loading, ensuring an optimal user experience.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Features
 
-### Code Splitting
+- **User Registration**: Register with valid credentials and get redirected to the dashboard.
+- **User Login**: Log in with valid credentials and get redirected to the homepage.
+- **Create a Board**: Create a new board with a selected layout.
+- **Show/Hide/Edit Board**: Toggle visibility or edit boards in "My Boards".
+- **Share a Board**: Share a board with others via a link.
+- **Upvote a Board**: Increase the upvote count on a board.
+- **Leaderboard**: View the leaderboard displaying boards ranked by upvotes.
+- **User Profile**: Click on a user's profile picture to view their information.
+- **User Profile Edit**: Edit your own profile information.
+- **Performance**: Fast loading and responsive UI on various screen sizes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Prerequisites
 
-### Analyzing the Bundle Size
+To run the application locally, you need to have the following installed:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Node.js (Preferred version: 20+)
+- npm (Node Package Manager)
 
-### Making a Progressive Web App
+## Getting Started
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Clone the Repository
 
-### Advanced Configuration
+Clone the repository using the following command:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+`git clone https://github.com/Rohan045/tiloscope.git`
 
-### Deployment
+### Install Dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Navigate to the project directory and install the required dependencies:
 
-### `npm run build` fails to minify
+`cd tiloscope`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+`npm install`
+
+### Set up Environment Variables
+
+You need to configure the `.env` file in the root directory with the correct values for your environment. Create a `.env` file (if it doesn't already exist) and update it with the following content:
+```bash
+REACT_APP_FRONTEND_BASE_URL = http://localhost:PORT 
+REACT_APP_SERVICE_BASE_URL = http://localhost:PORT 
+REACT_APP_FRONTEND_URL = https://github.com/Rohan045/tiloscope 
+REACT_APP_BACKEND_URL = https://github.com/vishal2468/tiloscope
+```
+
+- Replace `PORT` with the appropriate port number for your development environment.
+
+### Run the Application
+
+After setting up the environment variables, run the application using the following command:
+
+`npm start`
+
+This will start the development server and the application will be accessible in your browser at `http://localhost:3000` by default.
+
+### Backend Service
+
+The backend service for this project is available at the following GitHub repository:
+
+- [Backend Repository](https://github.com/vishal2468/tiloscope.git)
+
+Make sure the backend service is running on the appropriate port as specified in the `.env` file.
+
+## Test Cases
+
+Here are the expected behaviors for the key features of the application:
+
+### 1. User Registration
+- **Action**: Register with valid credentials.
+- **Expected Result**: User is successfully registered and redirected to the dashboard.
+
+### 2. User Login
+- **Action**: Log in with valid credentials.
+- **Expected Result**: User is logged in and redirected to the homepage.
+
+### 3. Create a Board
+- **Action**: Create a new board with a selected layout.
+- **Expected Result**: A new board is created and opened for editing.
+
+### 4. Show/Hide/Edit Board
+- **Action**: Toggle board visibility (show or hide) or edit from "My Boards".
+- **Expected Result**: Board visibility is changed or the board is opened for editing as per user choice.
+
+### 5. Share a Board
+- **Action**: Share a board via a link.
+- **Expected Result**: The board is accessible via the shared link.
+
+### 6. Upvote a Board
+- **Action**: Upvote a board post.
+- **Expected Result**: The upvote count for the board increases by one.
+
+### 7. View Leaderboard
+- **Action**: View the leaderboard with boards ranked by upvotes.
+- **Expected Result**: The leaderboard shows boards ordered by upvotes.
+
+### 8. User Profile
+- **Action**: Click on any user profile picture or user information.
+- **Expected Result**: The user profile dialog opens with their information.
+
+### 9. User Profile Edit
+- **Action**: Click on your own user profile picture or user information.
+- **Expected Result**: The user profile dialog opens with editable options for user information.
+
+### 10. Performance
+- **Action**: Interact with the application.
+- **Expected Result**: The application should load quickly, and the UI should be responsive across different screen sizes.
+
+## Technologies Used
+
+- **Frontend**: React
+- **Backend**: Node.js (via [tiloscope backend service](https://github.com/vishal2468/tiloscope.git))
+- **CSS**: For styling and responsive UI
+- **State Management**: React Hooks, Context API (if used)
+
+## Contributing
+
+If you'd like to contribute to the development of Tiloscope, please follow these steps:
+
+1. Fork the repository
+2. Create a new branch
+3. Make your changes
+4. Commit your changes
+5. Push to your fork
+6. Create a pull request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+If you encounter any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
