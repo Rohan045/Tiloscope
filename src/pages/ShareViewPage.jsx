@@ -40,7 +40,7 @@ const ShareViewPage = () => {
       <Header />
 
       {boardInfo && (
-        <div className="flex flex-col">
+        <div className="flex flex-col bg-black">
           <div className="p-5">
             <UserInfo
               config={{

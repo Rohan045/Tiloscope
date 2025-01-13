@@ -72,9 +72,9 @@ const UserGridCard = (props) => {
       <UserInfo
         config={{
           name: name,
-          // email: email,
+          email: email,
           description: description,
-          // rank: rank,
+          rank: rank,
           photoUrl: photoUrl,
         }}
       />

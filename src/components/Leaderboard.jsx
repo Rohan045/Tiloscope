@@ -1,4 +1,4 @@
-import { ShieldHalf } from "lucide-react";
+import { ShieldHalf, RefreshCcw } from "lucide-react";
 import React, { useEffect } from "react";
 import { getApiCall } from "../interceptors/ApiCallInterceptors";
 import {
@@ -7,6 +7,7 @@ import {
 } from "../stores/DialogManagementStore";
 import { useLeaderboardManagement } from "../stores/LeaderboardManagementStore";
 import UserInfo from "./UserInfo";
+import IconInfo from "./IconInfo";
 
 const Leaderboard = () => {
   const { setDialogInfo } = useDialogManagementStore();
@@ -36,10 +37,13 @@ const Leaderboard = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="vertical-centered font-bold border-solid border-zinc-700 border-b p-3 h-[70px]">
+      <div className="vertical-centered font-bold border-solid justify-items-center border-zinc-700 border-b p-3 h-[70px] flex flex-row">
         <div className="flex flex-row w-[150px]">
           <ShieldHalf />
           <span className="font-meduim pl-5">Leaderboard</span>
+        </div>
+        <div className="w-full justify-items-end">
+          <RefreshCcw className="cursor-pointer" onClick={() => fetchLeaderboard()} />
         </div>
       </div>
       <div className="p-3">
@@ -49,9 +53,9 @@ const Leaderboard = () => {
               <UserInfo
                 config={{
                   name: data[0],
-                  // email: data[1],
+                  email: data[1],
                   description: data[2],
-                  // rank: index,
+                  rank: index + 1,
                   photoUrl: data[3],
                 }}
               />

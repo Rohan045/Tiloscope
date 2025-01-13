@@ -2,7 +2,7 @@ import React from "react";
 
 const ErrorPage = () => {
   return (
-    <div className="centered h-screen">
+    <div className="centered h-screen bg-black">
       <span className="text-7xl">404</span>
       <div className="mt-7">
         Are you looking for this{" "}

@@ -5,7 +5,7 @@ import "../styles/home.css";
 
 const LoginPage = () => {
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row bg-black">
       <div className="flex flex-col justify-center items-center h-[370px] w-full md:h-[100vh] md:w-1/2">
         <div className="object-contain h-[370px] w-full md:h-full">
           <img

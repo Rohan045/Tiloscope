@@ -43,13 +43,13 @@ const HomePage = () => {
     <>
       <Header />
       <div className="flex flex-row h-[90%] lg:mx-[10%]">
-        <div className="w-1/4 border-solid border-zinc-700 border-x hidden lg:block">
+        <div className="w-1/4 border-solid border-zinc-700 border-x hidden bg-black lg:block">
           <Sidebar />
         </div>
-        <div className="overflow-auto scrollbar-hide w-full lg:w-2/4 ">
+        <div className="overflow-auto scrollbar-hide w-full lg:w-2/4 bg-black">
           <Outlet />
         </div>
-        <div className="w-1/4 border-solid border-zinc-700 border-x hidden lg:block">
+        <div className="w-1/4 border-solid border-zinc-700 border-x hidden bg-black lg:block">
           <Leaderboard />
         </div>
       </div>
