@@ -18,11 +18,11 @@ const LoginPage = () => {
 
       <div className="flex flex-col  items-center md:justify-center md:items-center md:w-2/3">
         <div className="card bg-zinc-700 w-fit">
-          <div className="flex flex-col  px-5 md:p-10">
+          <div className="flex flex-col p-5 md:p-10">
             <span className="text-2xl md:text-5xl">
               Welcome to <strong>TiloScope!</strong> 🎨 🚀
             </span>
-            <ul className="my-3 md:my-7">
+            <ul className="text-xs my-3 md:my-7 md:text-lg">
               <li>
                 <strong># Unleash Your Creativity:</strong> Decorate grids with
                 vibrant tiles.
