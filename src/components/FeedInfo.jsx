@@ -17,6 +17,7 @@ function Feed() {
   const { setLoaderInfo } = useLoaderManagementStore();
   const [allBoardList, setAllBoardList] = useState([]);
   const [isRefreshButtonVisible, setIsRefreshButtonVisible] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const defaultFeed = [
     <DefaultFeedSkeleton />,
     <DefaultFeedSkeleton />,
@@ -47,17 +48,27 @@ function Feed() {
     }
   }, []);
 
-  const refreshFeed = async () => {
-    try {
-      setLoaderInfo({
-        text: "Fetching Feeds Data...",
-      });
-      await fetchAllBoardsInfo(-1);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoaderInfo(undefined);
+  useEffect(() => {
+    if (isRefreshing) {
+      const refreshData = async () => {
+        setLoaderInfo({
+          text: "Fetching Feed...",
+        });
+        try {
+          await fetchAllBoardsInfo(-1);
+        } catch (e) {
+          console.error(e);
+        } finally {
+          setLoaderInfo(undefined);
+        }
+      };
+
+      refreshData();
     }
+  }, [isRefreshing]);
+
+  const refreshFeed = async () => {
+    setIsRefreshing(true);
   };
 
   const fetchAllBoardsInfo = async (pageNo) => {
@@ -71,7 +82,13 @@ function Feed() {
         return;
       }
 
-      const updatedList = allBoardList.concat(response);
+      let updatedList = undefined;
+      if (isRefreshing) {
+        updatedList = response;
+      } else {
+        updatedList = allBoardList.concat(response);
+      }
+
       setAllBoardList(updatedList);
       setPageNo(pageNo + 1);
     } catch (e) {
@@ -79,13 +96,15 @@ function Feed() {
         type: "error",
         text: "An error occured. Please try again",
       });
+    } finally {
+      setIsRefreshing(false);
     }
   };
 
   return (
     <div className="flex flex-col px-3">
       <div
-        className="flex flex-row justify-center p-[6px]"
+        className="flex flex-row justify-center p-[6px] bg-transparent"
         onMouseEnter={() => setIsRefreshButtonVisible(!isRefreshButtonVisible)}
         onMouseLeave={() => setIsRefreshButtonVisible(!isRefreshButtonVisible)}
       >

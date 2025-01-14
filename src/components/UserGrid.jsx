@@ -6,6 +6,7 @@ import { useDialogManagementStore } from "../stores/DialogManagementStore";
 import { useLeaderboardManagement } from "../stores/LeaderboardManagementStore";
 import Board from "./Board";
 import MyBoardCard from "./MyBoardCard";
+import ThemeInfoContainer from "./ThemeInfoContainer";
 import UserGridCard from "./UserGridCard";
 
 const UserGrid = (props) => {
@@ -88,23 +89,33 @@ const UserGrid = (props) => {
       )}
 
       <div
-        className="flex flex-row justify-center p-3"
+        className="flex flex-col justify-center pb-3"
         style={{
           backgroundImage: `url(${bgImg})`,
           backgroundSize: "cover", // adjust to your needs
           backgroundPosition: "center", // adjust to your needs
         }}
       >
-        <Board
+        <ThemeInfoContainer
           config={{
-            rows: boardInfo?.board?.rows,
-            cols: boardInfo?.board?.cols,
-            name: <span>Board 1</span>,
-            squareDataList: convertToThisList(boardInfo?.playerBoardSquares),
-            tileDataList: [],
-            isTileHighlightEnabled: false,
+            theme: boardInfo?.theme?.name,
+            description: boardInfo?.theme?.description,
+            url: boardInfo?.theme?.url,
           }}
         />
+
+        <div className="horizontal-centered">
+          <Board
+            config={{
+              rows: boardInfo?.board?.rows,
+              cols: boardInfo?.board?.cols,
+              name: <span>Board 1</span>,
+              squareDataList: convertToThisList(boardInfo?.playerBoardSquares),
+              tileDataList: [],
+              isTileHighlightEnabled: false,
+            }}
+          />
+        </div>
       </div>
     </div>
   );

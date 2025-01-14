@@ -13,6 +13,7 @@ import {
 import { useUserManagementStore } from "../stores/UserManagementStore";
 import Board from "./Board";
 import IconInfo from "./IconInfo";
+import ThemeInfoContainer from "./ThemeInfoContainer";
 
 const CreateBoard = () => {
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
@@ -122,7 +123,13 @@ const CreateBoard = () => {
       setLoaderInfo({
         text: "Creating Board...",
       });
-      const response = await postApiCall(`/playerboard/${boardId}`, null, true);
+      const response = await postApiCall(
+        `/playerboard`,
+        {
+          boardId: boardId,
+        },
+        true
+      );
       setCreatedBoard(response);
       setDialogInfo({
         type: "info",
@@ -220,22 +227,35 @@ const CreateBoard = () => {
         </div>
       </form>
 
-      <div className="centered h-[70vh] overflow-auto">
+      <div className="flex flex-col">
         {createdBoard !== undefined && (
-          <Board
+          <ThemeInfoContainer
             config={{
-              rows: createdBoard?.board?.rows,
-              cols: createdBoard?.board?.cols,
-              name: <span className="text-2xl font-bold mx-2">Board New</span>,
-              squareDataList: convertToThisList(
-                createdBoard?.playerBoardSquares
-              ),
-              tileDataList: loggedInUserInfo?.tiles,
-              updateSavePayloadListFn: updateSavePayloadList,
-              isTileHighlightEnabled: true,
+              theme: createdBoard?.theme?.name,
+              description: createdBoard?.theme?.description,
+              themeUrl: createdBoard?.theme?.themeUrl,
             }}
           />
         )}
+        <div className="horizontal-centered overflow-auto">
+          {createdBoard !== undefined && (
+            <Board
+              config={{
+                rows: createdBoard?.board?.rows,
+                cols: createdBoard?.board?.cols,
+                name: (
+                  <span className="text-2xl font-bold mx-2">Board New</span>
+                ),
+                squareDataList: convertToThisList(
+                  createdBoard?.playerBoardSquares
+                ),
+                tileDataList: loggedInUserInfo?.tiles,
+                updateSavePayloadListFn: updateSavePayloadList,
+                isTileHighlightEnabled: true,
+              }}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

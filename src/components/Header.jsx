@@ -1,4 +1,4 @@
-import { Github } from "lucide-react";
+import { Users } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/main-title-image.png";
@@ -18,19 +18,21 @@ const Header = () => {
       >
         <img src={logo} alt="logo" />
       </div>
-      <div
-        className="flex flex-row cursor-pointer"
-        onClick={() => {
-          window.open(process.env.REACT_APP_FRONTEND_URL, "_blank");
-          window.open(process.env.REACT_APP_BACKEND_URL, "_blank");
-        }}
-      >
-        <IconInfo
-          config={{
-            icon: <Github />,
-            text: "Source",
+
+      <div className="flex flex-row">
+        <div
+          className="flex flex-row cursor-pointer"
+          onClick={() => {
+            window.open(process.env.REACT_APP_PROJECT_DEVPOST_URL, "_blank");
           }}
-        />
+        >
+          <IconInfo
+            config={{
+              icon: <Users />,
+              text: "About",
+            }}
+          />
+        </div>
       </div>
     </div>
   );
