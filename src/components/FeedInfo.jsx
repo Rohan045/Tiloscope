@@ -1,8 +1,11 @@
-import { PaintBucketIcon } from "lucide-react";
+import { PaintBucketIcon, RefreshCcw } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getApiCall } from "../interceptors/ApiCallInterceptors";
-import { useDialogManagementStore } from "../stores/DialogManagementStore";
+import {
+  useDialogManagementStore,
+  useLoaderManagementStore,
+} from "../stores/DialogManagementStore";
 import { useUserManagementStore } from "../stores/UserManagementStore";
 import DefaultFeedSkeleton from "./DefaultFeedSkeleton";
 import IconInfo from "./IconInfo";
@@ -11,7 +14,9 @@ import UserGrid from "./UserGrid";
 function Feed() {
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
   const { setDialogInfo } = useDialogManagementStore();
+  const { setLoaderInfo } = useLoaderManagementStore();
   const [allBoardList, setAllBoardList] = useState([]);
+  const [isRefreshButtonVisible, setIsRefreshButtonVisible] = useState(false);
   const defaultFeed = [
     <DefaultFeedSkeleton />,
     <DefaultFeedSkeleton />,
@@ -42,6 +47,19 @@ function Feed() {
     }
   }, []);
 
+  const refreshFeed = async () => {
+    try {
+      setLoaderInfo({
+        text: "Fetching Feeds Data...",
+      });
+      await fetchAllBoardsInfo(-1);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoaderInfo(undefined);
+    }
+  };
+
   const fetchAllBoardsInfo = async (pageNo) => {
     try {
       const response = await getApiCall("/playerboard?page=" + (pageNo + 1));
@@ -65,7 +83,23 @@ function Feed() {
   };
 
   return (
-    <div className="flex flex-col p-3">
+    <div className="flex flex-col px-3">
+      <div
+        className="flex flex-row justify-center p-[6px]"
+        onMouseEnter={() => setIsRefreshButtonVisible(!isRefreshButtonVisible)}
+        onMouseLeave={() => setIsRefreshButtonVisible(!isRefreshButtonVisible)}
+      >
+        {isRefreshButtonVisible && (
+          <button
+            id="refresh-button"
+            className="flex flex-row justify-center bg-transparent border-solid border-zinc-700 border-[1px]"
+            name="saveBoard"
+            onClick={() => refreshFeed()}
+          >
+            <IconInfo config={{ icon: <RefreshCcw />, text: "Refresh Feed" }} />
+          </button>
+        )}
+      </div>
       <div className="flex flex-col w-full">
         {allBoardList.length > 0
           ? allBoardList.map((boardInfo, index) => {
