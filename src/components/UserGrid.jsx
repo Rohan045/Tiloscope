@@ -15,7 +15,9 @@ const UserGrid = (props) => {
   const { setDialogInfo } = useDialogManagementStore();
 
   const getRankFromPlayerBoard = (email) => {
-    return leaderboard.findIndex((player) => player[1] === email) + 1;
+    if (leaderboard !== undefined) {
+      return leaderboard.findIndex((player) => player[1] === email) + 1;
+    }
   };
 
   const convertToThisList = (playerBoardSquares) => {
