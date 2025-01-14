@@ -11,8 +11,25 @@ const HomePage = () => {
   const navigate = useNavigate();
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
 
+  const [feedContainerHeight, setFeedContainerHeight] = useState();
   const [isLeftDrawerOpen, setIsLeftDrawerOpen] = useState(false);
   const [isRightDrawerOpen, setIsRightDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    setFeedContainerHeight(getRemainingHeight());
+    window.addEventListener("resize", getRemainingHeight);
+    return () => {
+      window.removeEventListener("resize", getRemainingHeight);
+    };
+  }, []);
+
+  const getRemainingHeight = () => {
+    const headerHeight = document.getElementById("header").offsetHeight;
+    const windowHeight = window.innerHeight;
+    const remainingHeight = windowHeight - headerHeight;
+    document.getElementById("feed-container").style.height =
+      remainingHeight + "px";
+  };
 
   const toggleMenuOption = () => {
     setIsLeftDrawerOpen((isLeftDrawerOpen) => !isLeftDrawerOpen);
@@ -42,14 +59,20 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-row h-[90%] lg:mx-[10%]">
-        <div className="w-1/4 border-solid border-zinc-700 border-x hidden bg-black lg:block">
+      <div className="flex flex-row flex-grow lg:mx-[10%]">
+        <div className="w-1/4 border-solid border-zinc-700 border-x hidden flex-grow bg-black lg:block">
           <Sidebar />
         </div>
-        <div className="overflow-auto scrollbar-hide w-full lg:w-2/4 bg-black">
+        <div
+          id="feed-container"
+          className="overflow-auto scrollbar-hide w-full lg:w-2/4 bg-black"
+          style={{
+            height: feedContainerHeight,
+          }}
+        >
           <Outlet />
         </div>
-        <div className="w-1/4 border-solid border-zinc-700 border-x hidden bg-black lg:block">
+        <div className="w-1/4 border-solid border-zinc-700 border-x hidden flex-grow bg-black lg:block">
           <Leaderboard />
         </div>
       </div>

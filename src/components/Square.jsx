@@ -7,12 +7,17 @@ const handleOnDragOver = (e) => {
 };
 
 const Square = (props) => {
-  const { squareId, playerBoardSquareId, tiles } = props.config;
-  const { activeTileIndex, setActiveTileIndex } = useActiveTileManagement();
+  const { tiles } = props.config;
+  const { setActiveTileIndex } = useActiveTileManagement();
   const index = props.index;
   const onDropFn = props.onDropFn;
+  const onClickFn = props.onClickFn;
 
   const handleOnDragStart = (e, id) => {
+    setActiveTileIndex(id);
+  };
+
+  const handleOnSelectTile = (e, id) => {
     setActiveTileIndex(id);
   };
 
@@ -20,6 +25,7 @@ const Square = (props) => {
     <div
       className="centered w-[50px] h-[50px] bg-white"
       onDrop={(e) => onDropFn(e, index)}
+      onClick={(e) => onClickFn(e, index)}
       onDragOver={handleOnDragOver}
     >
       {tiles.map((tile) => (
@@ -28,7 +34,8 @@ const Square = (props) => {
             index={index}
             key={tile.id}
             config={tile}
-            onDragStartFn={(e, id) => handleOnDragStart(e, tile.id)}
+            onDragStartFn={(e) => handleOnDragStart(e, tile.id)}
+            onClickFn={(e) => handleOnSelectTile(e, tile.id)}
           />
         </div>
       ))}

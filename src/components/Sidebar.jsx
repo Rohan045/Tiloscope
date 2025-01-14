@@ -1,10 +1,17 @@
-import { Brush, House, LogOut, Shield, Palette, UserRoundPen } from "lucide-react";
+import {
+  Brush,
+  House,
+  LogOut,
+  Palette,
+  Shield,
+  UserRoundPen,
+} from "lucide-react";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import userIcon from "../assets/user-icon.png";
+import { useEditProfileManagementStore } from "../stores/DialogManagementStore";
 import { useLeaderboardManagement } from "../stores/LeaderboardManagementStore";
 import { useUserManagementStore } from "../stores/UserManagementStore";
-import { useEditProfileManagementStore } from "../stores/DialogManagementStore";
 import IconInfo from "./IconInfo";
 
 const Sidebar = () => {
@@ -13,17 +20,17 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
-  const { leaderboard, setLeaderboard } = useLeaderboardManagement();
+  const { leaderboard } = useLeaderboardManagement();
   const { setProfileInfo } = useEditProfileManagementStore();
 
-  useEffect(() => { }, [loggedInUserInfo]);
+  useEffect(() => {}, [loggedInUserInfo]);
 
   const getRankFromPlayerBoard = (email) => {
     return leaderboard.findIndex((player) => player[1] === email) + 1;
   };
   const handleEditProfileButton = () => {
     setProfileInfo(loggedInUserInfo);
-  }
+  };
   const handleButton = (button) => () => {
     if (button === "logOut") {
       localStorage.removeItem("token");

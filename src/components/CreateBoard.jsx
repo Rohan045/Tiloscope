@@ -232,6 +232,7 @@ const CreateBoard = () => {
               ),
               tileDataList: loggedInUserInfo?.tiles,
               updateSavePayloadListFn: updateSavePayloadList,
+              isTileHighlightEnabled: true,
             }}
           />
         )}

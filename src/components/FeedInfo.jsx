@@ -2,10 +2,7 @@ import { PaintBucketIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getApiCall } from "../interceptors/ApiCallInterceptors";
-import {
-  useDialogManagementStore,
-  useLoaderManagementStore,
-} from "../stores/DialogManagementStore";
+import { useDialogManagementStore } from "../stores/DialogManagementStore";
 import { useUserManagementStore } from "../stores/UserManagementStore";
 import DefaultFeedSkeleton from "./DefaultFeedSkeleton";
 import IconInfo from "./IconInfo";
@@ -14,7 +11,6 @@ import UserGrid from "./UserGrid";
 function Feed() {
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
   const { setDialogInfo } = useDialogManagementStore();
-  const { setLoaderInfo } = useLoaderManagementStore();
   const [allBoardList, setAllBoardList] = useState([]);
   const defaultFeed = [
     <DefaultFeedSkeleton />,

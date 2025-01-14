@@ -10,7 +10,7 @@ import UserGridCard from "./UserGridCard";
 
 const UserGrid = (props) => {
   const { boardInfo } = props.boardInfo;
-  const { leaderboard, setLeaderboard } = useLeaderboardManagement();
+  const { leaderboard } = useLeaderboardManagement();
   const { setDialogInfo } = useDialogManagementStore();
 
   const getRankFromPlayerBoard = (email) => {
@@ -102,6 +102,7 @@ const UserGrid = (props) => {
             name: <span>Board 1</span>,
             squareDataList: convertToThisList(boardInfo?.playerBoardSquares),
             tileDataList: [],
+            isTileHighlightEnabled: false,
           }}
         />
       </div>

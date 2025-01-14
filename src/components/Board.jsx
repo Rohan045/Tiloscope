@@ -4,14 +4,24 @@ import Square from "./Square";
 import Tile from "./Tile";
 
 const Board = (props) => {
-  const { rows, cols, squareDataList, tileDataList, updateSavePayloadListFn } =
-    props.config;
+  const {
+    rows,
+    cols,
+    squareDataList,
+    tileDataList,
+    updateSavePayloadListFn,
+    isTileHighlightEnabled,
+  } = props.config;
   const { activeTileIndex, setActiveTileIndex } = useActiveTileManagement();
   const [squareList, setSquareList] = useState(squareDataList);
   const [tileList] = useState(tileDataList);
   const [moveSaveStatus] = useState();
 
   const handleOnDragStart = (e, id) => {
+    setActiveTileIndex(id);
+  };
+
+  const handleOnSelectTile = (e, id) => {
     setActiveTileIndex(id);
   };
 
@@ -37,6 +47,13 @@ const Board = (props) => {
     setActiveTileIndex(null);
   };
 
+  const handleOnSelectSquare = async (e, index) => {
+    if (activeTileIndex === null || activeTileIndex === undefined) {
+      return;
+    }
+    handleOnDrop(e, index);
+  };
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-between">
@@ -57,6 +74,7 @@ const Board = (props) => {
                 key={index}
                 config={square}
                 onDropFn={handleOnDrop}
+                onClickFn={handleOnSelectSquare}
               />
             ))}
         </div>
@@ -77,6 +95,8 @@ const Board = (props) => {
                 key={index}
                 config={tile}
                 onDragStartFn={handleOnDragStart}
+                onClickFn={handleOnSelectTile}
+                isTileHighlightEnabled={isTileHighlightEnabled}
               />
             ))}
           </div>

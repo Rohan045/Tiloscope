@@ -5,18 +5,25 @@ import Board from "../components/Board";
 import Header from "../components/Header";
 import UserInfo from "../components/UserInfo";
 import { getApiCall } from "../interceptors/ApiCallInterceptors";
+import { useLoaderManagementStore } from "../stores/DialogManagementStore";
 
 const ShareViewPage = () => {
   const { id } = useParams();
   const [boardInfo, setBoardInfo] = useState();
+  const { setLoaderInfo } = useLoaderManagementStore();
 
   useEffect(() => {
     const getPlayerBoardInfo = async () => {
+      setLoaderInfo({
+        text: "Loading Board...",
+      });
       try {
         const response = await getApiCall(`/shareView/${id}`, {});
         setBoardInfo(response);
       } catch (err) {
         console.error(err);
+      } finally {
+        setLoaderInfo(undefined);
       }
     };
     getPlayerBoardInfo();
@@ -40,7 +47,7 @@ const ShareViewPage = () => {
       <Header />
 
       {boardInfo && (
-        <div className="flex flex-col bg-black">
+        <div className="flex flex-col flex-grow bg-black">
           <div className="p-5">
             <UserInfo
               config={{
@@ -54,7 +61,7 @@ const ShareViewPage = () => {
           </div>
 
           <div
-            className="centered h-[70vh] overflow-auto"
+            className="centered overflow-auto h-full"
             style={{
               backgroundImage: `url(${bgImg})`,
               backgroundSize: "cover", // adjust to your needs
