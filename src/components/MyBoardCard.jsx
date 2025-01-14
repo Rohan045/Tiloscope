@@ -15,7 +15,7 @@ const MyBoardCard = (props) => {
     const { setLoaderInfo } = useLoaderManagementStore();
     const navigate = useNavigate();
     const onEdit = () => {
-        navigate("/home/createBoard", { state: { boardInfo: boardInfo } });
+        navigate("/home/editBoard", { state: { boardInfo: boardInfo } });
     };
     const onPost = async (visible) => {
         const payload = {

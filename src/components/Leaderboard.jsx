@@ -1,5 +1,5 @@
 import { RefreshCcw, ShieldHalf } from "lucide-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getApiCall } from "../interceptors/ApiCallInterceptors";
 import {
   useDialogManagementStore,
@@ -12,10 +12,25 @@ const Leaderboard = () => {
   const { setDialogInfo } = useDialogManagementStore();
   const { setLoaderInfo } = useLoaderManagementStore();
   const { leaderboard, setLeaderboard } = useLeaderboardManagement();
-
+  const [leaderBoardContainerHeight, setleaderBoardContainerHeight] = useState();
   useEffect(() => {
     fetchLeaderboard();
   }, []);
+  useEffect(() => {
+    setleaderBoardContainerHeight(getRemainingHeight());
+    window.addEventListener("resize", getRemainingHeight);
+    return () => {
+      window.removeEventListener("resize", getRemainingHeight);
+    };
+  }, []);
+
+  const getRemainingHeight = () => {
+    const headerHeight = document.getElementById("header").offsetHeight;
+    const windowHeight = window.innerHeight;
+    const remainingHeight = windowHeight - headerHeight;
+    document.getElementById("feed-container").style.height =
+      remainingHeight + "px";
+  };
 
   const fetchLeaderboard = async () => {
     try {
@@ -35,7 +50,9 @@ const Leaderboard = () => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col overflow-auto" style={{
+      height: leaderBoardContainerHeight
+    }}>
       <div className="vertical-centered font-bold border-solid justify-items-center border-zinc-700 border-b p-3 h-[70px] flex flex-row">
         <div className="flex flex-row w-[150px]">
           <ShieldHalf />

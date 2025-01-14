@@ -6,7 +6,7 @@ import {
   Shield,
   UserRoundPen,
 } from "lucide-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import userIcon from "../assets/user-icon.png";
 import { useEditProfileManagementStore } from "../stores/DialogManagementStore";
@@ -22,9 +22,24 @@ const Sidebar = () => {
   const { loggedInUserInfo, setLoggedInUserInfo } = useUserManagementStore();
   const { leaderboard } = useLeaderboardManagement();
   const { setProfileInfo } = useEditProfileManagementStore();
+  const [sidebarContainerHeight, setsidebarContainerHeight] = useState();
 
-  useEffect(() => {}, [loggedInUserInfo]);
+  useEffect(() => { }, [loggedInUserInfo]);
+  useEffect(() => {
+    setsidebarContainerHeight(getRemainingHeight());
+    window.addEventListener("resize", getRemainingHeight);
+    return () => {
+      window.removeEventListener("resize", getRemainingHeight);
+    };
+  }, []);
 
+  const getRemainingHeight = () => {
+    const headerHeight = document.getElementById("header").offsetHeight;
+    const windowHeight = window.innerHeight;
+    const remainingHeight = windowHeight - headerHeight;
+    document.getElementById("sidebar").style.height =
+      remainingHeight + "px";
+  };
   const getRankFromPlayerBoard = (email) => {
     return leaderboard.findIndex((player) => player[1] === email) + 1;
   };
@@ -41,7 +56,9 @@ const Sidebar = () => {
   };
 
   return (
-    <div>
+    <div className="overflow-auto scrollbar-hide" id="sidebar" style={{
+      height: sidebarContainerHeight
+    }}>
       <div className="centered mb-5 py-5">
         <img
           src={loggedInUserInfo?.photoUrl || userIcon}

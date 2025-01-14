@@ -59,7 +59,7 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-row flex-grow lg:mx-[10%]">
+      <div className="flex flex-row lg:mx-[10%]">
         <div className="w-1/4 border-solid border-zinc-700 border-x hidden flex-grow bg-black lg:block">
           <Sidebar />
         </div>
